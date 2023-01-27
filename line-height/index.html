@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* 
+        
+            line-height: 用于设置多行元素的行健距离，如多行文本的间距。
+                对于块级元素，它指定元素行盒（line boxes）的最小高度。
+                对于非替代的 inline 元素，它用于计算行盒（line box）的高度
+            它有四种值
+                1. normal: 取决于用户端。桌面浏览器（包括 Firefox）使用默认值，约为1.2，这取决于元素的 font-family，
+                2. 数字: 设置不带单位的数字，此数字会与当前的字体尺寸相乘来设置行间距，推荐做法
+                3. 百分比: 基于当前字体尺寸的百分比行间距
+                4. 长度:  设置固定的行间距
+                5. inherit： 从父元素继承line-height属性的值。
+
+            应用：
+                对于有设置高度的并且是单行文本的元素，可以设置跟高度一样来达到垂直居中的效果
+        */
+
+        .container {
+            height: 50px;
+            flex-direction: column;
+            display: flex;
+            align-items: center;
+        }
+
+        .p1 {
+            line-height: 1;
+            /*  
+                最终line-height = 字体大小 * line-height的值
+                由于font-size会继承，因此，如果元素本身和元素父级or祖先都没有设置字体大小时，字体大小会取浏览器默认大小
+             */
+        }
+
+        .p2 {
+            line-height: 20px;
+            /* 最终line-height = 20px */
+        }
+
+        .p3 {
+            line-height: 100%;
+            /* line-height = 字体大小 * 百分比  */
+        }
+
+        .p4 {
+            font-size: 16px;
+            line-height: 20px;
+            /* 最终line-height = 20px */
+        }
+
+        .p6 {
+            font-size: 24px;
+        }
+
+        .p7 {
+            line-height: 1; /* 父级p6有设置字体大小为24, 它本身的没有设置字体大小，它的字体大小会继承字父类，最终它本身的字体大小为24px 最终p7的line-height = 24px * 1 = 24px */
+        }
+
+        .p8 {
+            font-size: 20px;
+        }
+
+        .p9 {
+            font-size: 16px;
+            line-height: 1;  /* 它本身有设置字体大小，最终p9的line-height = 16px * 1 = 16px */
+        }
+
+        .p10 {
+            font-size: 32px;
+        }
+
+        .p11 {
+            line-height: 200%; /* 字体大小继承自父类，最终为32px 最终line-height = 32px * 200% = 64px */
+        }
+
+        .p12 {
+            font-size: 22px;
+        }
+
+        .p13 {
+            font-size: 40px;
+            line-height: 200%; /* 本身有设置字体大小，最终line-height = 40px * 200% = 80px */
+        }
+
+
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <p class="p1">line-height直接为数字: 值=字体大小 * 该数字</p>
+
+        <p class="p2">line-height为具体带单位: 值=该值</p>
+
+        <p class="p3">line-height位百分比: 值=字体大小*百分比</p>
+
+        <div class="p4">
+            <p class="p5"></p>
+        </div>
+
+        <div class="p6">
+            <p class="p7">父级设置了字体大小，line-height为数字值 </p>
+        </div>
+
+        <div class="p8">
+            <p class="p9">父级和本身都设设置了字体大小，line-height为数字值 </p>
+        </div>
+
+        <div class="p10">
+            <p class="p11">父级设置了字体大小，line-height为百分比</p>
+        </div>
+
+        <div class="p12">
+            <p class="p13">父级和本身都设设置了字体大小，line-height为百分比</p>
+        </div>
+    </div>
+</body>
+
+</html>

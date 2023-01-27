@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS实现瀑布流</title>
+    <style>
+        #app {
+            width: 100%;
+            column-width: 100px;
+            column-gap: 10px;
+            -webkit-column-width: 100px;
+            -moz-column-width: 100px;
+        }
+
+        #app div {
+            position: relative;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            break-inside: avoid;
+        }
+
+        #app div span {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, .4);
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app"></div>
+    <script>
+        const app = document.querySelector('#app');
+        const max = 300;
+        const min = 100;
+
+        function createDiv ()
+        {
+            Array(50).fill(null).map((item, index) => {
+                let rgb = [parseInt(Math.random() * (255 + 1)), parseInt(Math.random() * (255 + 1)), parseInt(Math.random() * (255 + 1))];
+                let height = parseInt(Math.random() * (max - min + 1) + min);
+                let [r, g, b] = rgb;
+                const div = `
+                <div style="height:${height}px; background-color:rgb(${r},${g},${b})">
+                    <span>${index}</span>
+                </div>
+                `
+                app.insertAdjacentHTML('beforeend', div)
+            });
+        }
+        createDiv()
+    </script>
+</body>
+</html>

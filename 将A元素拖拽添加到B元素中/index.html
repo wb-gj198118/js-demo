@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>拖拽A元素并添加到B元素</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        .container {
+            height: 100vh;
+            width: 100vw;
+            padding: 24px;
+            background-color: blanchedalmond;
+        }
+
+        .A {
+            height: 24px;
+            line-height: 24px;
+            font-size: 18px;
+            background-color: antiquewhite;
+            padding: 0 8px;
+            cursor: move;
+        }
+
+        .B {
+            height: 100px;
+            line-height: 50px;
+            font-size: 24px;
+            background-color: bisque;
+            padding: 16px;
+            margin: 24px 0;
+        }
+
+        .moving {
+            background-color: transparent;
+            border: 2px dashed #ccc;
+        }
+
+        .adding {
+            animation: fade-in 2s ease-in;
+            cursor: copy;
+        }
+
+        @keyframes fade-in {
+            from {
+                opacity: 0.5;
+            }
+
+            to {
+                opacity: 1;
+                background-color: burlywood;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container" ondrop="drop(event)" ondragover="allowDrop(event)" ondragenter="dragEnter(event)">
+        <div id="A" class="A" draggable="true" ondragstart="drag(event)" ondragend="dragEnd(event)">A元素</div>
+        <div class="B" ondrop="drop(event)" ondragover="allowDrop(event)" ondragenter="dragEnter(event)">B元素</div>
+        <div class="B" ondrop="drop(event)" ondragover="allowDrop(event)" ondragenter="dragEnter(event)">B元素</div>
+    </div>
+    <script>
+        // 在拖动目标上触发事件 (源元素):
+        // ondragstart - 用户开始拖动元素时触发
+        // ondrag - 元素正在拖动时触发
+        // ondragend - 用户完成元素拖动后触发
+
+        // 释放目标时触发的事件:
+        // ondragenter - 当被鼠标拖动的对象进入其容器范围内时触发此事件
+        // ondragover - 当某被拖动的对象在另一对象容器范围内拖动时触发此事件
+        // ondragleave - 当被鼠标拖动的对象离开其容器范围内时触发此事件
+        // ondrop - 在一个拖动过程中，释放鼠标键时触发此事件
+
+        var isStartDrag = false;
+
+        // 释放目标事件，拖动目标在当前释放目标范围内拖动时事件
+        function allowDrop(ev) {
+            ev.preventDefault();
+            ev.stopPropagation();
+            // ev.dataTransfer.effectAllowed = 'copy';
+        }
+
+        // 拖动目标事件，开始拖动元素事件
+        function drag(ev) {
+            isStartDrag = true;
+            setTimeout(() => {
+                ev.target.classList.add('moving');
+            }, 0);
+            // 设置被拖动元素允许移动到新的位置
+            ev.dataTransfer.effectAllowed = 'move';
+            // 记录被拖动元素
+            ev.dataTransfer.setData("source_id", ev.target.id);
+        }
+
+        // 释放目标事件，拖动中，释放鼠标键时的处理事件
+        function drop(ev) {
+            ev.preventDefault();
+            ev.stopPropagation();
+            var data = ev.dataTransfer.getData("source_id");
+            ev.target.appendChild(document.getElementById(data));
+            ev.dataTransfer.effectAllowed = '';
+            [...document.querySelectorAll('.adding')].forEach((element) => {
+                element.classList.remove('adding');
+            });
+        }
+
+        // 拖动目标结束时的事件
+        function dragEnd(evt) {
+            evt.target.classList.remove('moving');
+            isStartDrag = false;
+        }
+
+        // 释放目标时拖动中的事件
+        function dragEnter(evt) {
+            // evt.preventDefault();
+            evt.stopPropagation();
+            evt.dataTransfer.effectAllowed = 'copy';
+            evt.target.classList.add('adding');
+        }
+    </script>
+</body>
+
+</html>

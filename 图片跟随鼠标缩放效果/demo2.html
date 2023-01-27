@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Demo2</title>
+    <style>
+
+        .container {
+            display: flex;
+            align-items: flex-start;
+            width: 500px;
+            height: 500px;
+            /* padding: 15px; */
+            box-shadow: 0 0 20px bisque;
+            position: relative;
+            overflow: hidden;
+            border-radius: 4px;
+        }
+
+        .mirror {
+            visibility: hidden;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 2px solid white;
+            position: absolute;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            will-change: transform;
+        }
+
+        .container:hover .mirror {
+            visibility: visible;
+        }
+
+        .bigImg {
+            --biTop: 0;
+            --biLeft: 0;
+            position: absolute;
+            top: var(--biTop);
+            left: var(--biLeft);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <img class="img" src="./images/R-C.jpeg" width="100%" height="100%" alt="">
+        <div class="mirror">
+            <img class="bigImg" src="./images/R-C.jpeg" alt="">
+        </div>
+    </div>
+
+    <script>
+
+        // 容器
+        const container = document.querySelector('.container');
+        // 放大镜
+        const mirror = container.querySelector('.mirror');
+        // 大图
+        const bigImg = mirror.querySelector('img');
+
+        function debounce(fn, dealy) {
+            let timer = null;
+            return function (...args) {
+                if (timer) clearTimeout(timer);
+                let ctx = this;
+                timer = setTimeout(function () {
+                    fn.call(ctx, ...args);
+                }, dealy);
+            }
+        }
+
+        // 移动事件处理
+        container.addEventListener('mousemove', debounce(evt => {
+            const _left = evt.target.offsetLeft;
+            const _top = evt.target.offsetTop;
+            const x = evt.clientX;
+            const y = evt.clientY;
+            let mLeft = x - _left - mirror.offsetWidth / 2;
+            let mTop = y - _top - mirror.offsetHeight / 2;
+
+            // 设置 mirror的 left = evt.clientX - evt.target.offsetLeft - mirror.offsetWidth / 2;
+            // 设置 mirror的 top = evt.clientY - evt.target.offsetTop - mirror.offsetHeight / 2;
+ 
+            // mirror.style.left = mLeft + 'px';
+            // mirror.style.top = mTop + 'px';
+
+            mirror.style.transform = 'translate3d(' + mLeft + 'px ,' + mTop + 'px, 0)';
+
+            // 计算比例
+            let biLeft = bigImg.offsetWidth / evt.target.offsetWidth * (x - _left ) - mirror.offsetWidth / 2;
+            let biTop = bigImg.offsetHeight / evt.target.offsetHeight * (y - _top ) - mirror.offsetHeight / 2;
+
+            bigImg.style.setProperty('--biLeft', -biLeft + 'px');
+            bigImg.style.setProperty('--biTop', -biTop + 'px');
+
+            evt.preventDefault();
+
+        }, 100), false);
+    </script>
+</body>
+
+</html>

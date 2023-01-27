@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>video录制</title>
+</head>
+
+<body>
+    <div class="layui-body">
+        <div id="container">
+            <video id="gum" autoplay muted></video>
+            <div class="controls">
+                <button id="record" disabled>开始录制</button>
+                <button id="play" disabled>播放</button>
+                <button id="download" disabled>下载</button>
+                <span id="tEl"></span>
+            </div>
+            <video id="gum2" controls="controls" autoplay style="display:none"></video>
+        </div>
+    </div>
+    <script src="./script.js" type="module"></script>
+</body>
+</html>
+</html>

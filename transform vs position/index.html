@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>transform</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html,body {
+            height: 100%;
+        }
+        .ball {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: pink;
+        }
+        .ball-1 {
+            position: relative;
+            left: 0;
+            top: 0;
+            animation: move1 1s alternate infinite ease-in-out;
+        }
+        .ball-2 {
+            animation: move2 1s alternate infinite ease-in-out;
+        }
+        @keyframes move1 {
+            to {
+                left: 200px;
+            }
+        }
+        @keyframes move2 {
+            to {
+                transform: translate(200px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="ball ball-1"></div>
+    <div class="ball ball-2"></div>
+    <button onclick="delay(5000)">按钮</button>
+
+    <script>
+        function delay (duration) {
+            let start = Date.now();
+            while(Date.now() - start < duration) {}
+        }
+    </script>
+</body>
+</html>
