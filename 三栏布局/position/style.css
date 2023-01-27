@@ -1,0 +1,21 @@
+.container {
+    height: 210px;
+}
+
+.left,
+.right {
+    position: absolute;
+    height: 100%;
+}
+
+.left {
+    left: 0;
+}
+
+.right {
+    right: 0;
+}
+
+.main {
+    height: 100%;
+}

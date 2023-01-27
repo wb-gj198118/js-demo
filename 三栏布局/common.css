@@ -1,0 +1,73 @@
+* {
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    /* width: max-content; */
+  }
+  
+  nav {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    flex-direction: column;
+    padding: 12px 0;
+  }
+  
+  nav a {
+    text-align: center;
+    text-decoration: none;
+  }
+  
+  nav a[aria-current='page'] {
+    color: blue;
+  }
+  
+  header {
+    background-color: aqua;
+  }
+  
+  footer {
+    background-color: antiquewhite;
+  }
+  
+  .container {
+    position: relative;
+    text-align: center;
+    margin: 8px 0;
+    padding: 8px;
+    min-width: 800px;
+    overflow: auto;
+    background-color: coral;
+  }
+  
+  .container::after {
+    content: '';
+    display: table;
+    clear: both;
+    zoom: 1;
+    overflow: hidden;
+    width: 100%;
+  }
+  
+  /* .container > div:where(.right, .main) {
+    line-height: 200px;
+  } */
+  
+  .left {
+    background-color: red;
+    width: 200px;
+  }
+  
+  .right {
+    background-color: yellowgreen;
+    width: 200px;
+  }
+  
+  .main {
+    background-color: green;
+  }
+  

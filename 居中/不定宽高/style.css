@@ -1,0 +1,116 @@
+\.flex {
+    display: flex;
+  }
+
+  .wrapper {
+    width: 100%;
+    height: 100px;
+  }
+
+  .content {
+    padding: 10px;
+  }
+
+  .demo1 {
+    background-color: red;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .demo1-con {
+    background-color: green;
+  }
+
+  .demo2 {
+    background-color: green;
+    position: relative;
+  }
+
+  .demo2-con {
+    background-color: red;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .demo3 {
+    display: table-cell;
+    vertical-align: middle;
+    background-color: yellow;
+  }
+
+  .demo3-con {
+    background-color: red;
+  }
+
+  .demo4 {
+    background-color: yellow;
+    text-align: center;
+    overflow: hidden;
+  }
+
+  .demo4-con {
+    width: 20%;
+    margin: 0 auto;
+    background-color: red;
+    transform: translateY(100%);
+  }
+
+  .demo5 {
+    background-color: tomato;
+    position: relative;
+  }
+
+  .demo5-con {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: yellow;
+  }
+
+  .demo6 {
+    background-color: red;
+  }
+
+  .demo6-con {
+    background-color: green;
+    margin: auto;
+  }
+
+  .demo7 {
+    display: table;
+    width: 100%;
+    background-color: #ccc;
+  }
+
+  .demo7-con {
+    display: table-cell;
+    vertical-align: middle;
+    color: white;
+    text-align: center;
+  }
+
+  .grid {
+    display: grid;
+    /* grid-template-rows: auto auto; */
+    /* grid-template-columns: 1fr 2fr 3fr; */
+    grid-template: auto/ repeat(3, 1fr);
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    /* grid-template-areas: 'a a c' 'a a c' 'a a c' 'a a .' 'a a .'; */
+    background-color: #2196f3;
+    height: 100%;
+  }
+
+  .demo8-con {
+    background-color: yellow;
+  }
+
+  .con-1 {
+    /* 利用grid-area 将第一行第一列设置为跨三行两列 */
+    /* grid-area: a; */
+    /* align-self: start; */
+  }

@@ -1,0 +1,24 @@
+:root {
+    --floatleftvar: left;
+    --floatrightvar: right;
+}
+
+.left {
+    float: var(--floatleftvar);
+}
+
+.right {
+    float: var(--floatrightvar);
+}
+
+.main {
+    background-color: green;
+    width: calc(100% - 400px);
+    /* 方案一. 用浮动 */
+    /* float: left;
+    margin: 0 4px; */
+
+    /* 方案二. 用定位 */
+    position: absolute;
+    left: 208px;
+}

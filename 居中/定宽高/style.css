@@ -1,0 +1,149 @@
+* {
+    box-sizing: border-box;
+  }
+  
+  body {
+    margin: 0;
+    font-family: system-ui, sans-serif;
+    color: black;
+    background-color: white;
+  }
+  
+  .wrapper {
+    width: 100px;
+    height: 100px;
+    position: relative;
+  }
+  
+  .content {
+    width: 60px;
+    height: 32px;
+    padding: 6px 0;
+    text-align: center;
+  }
+  
+  .demo1 {
+    width: 80px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    background-color: yellow;
+    box-sizing: border-box;
+  }
+  
+  .demo2 {
+    background-color: red;
+  }
+  
+  .demo2-con {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    background-color: blue;
+    color: white;
+  }
+  
+  .demo3 {
+    background-color: green;
+  }
+  
+  .demo3-con {
+    background-color: yellow;
+    position: absolute;
+    top: 50%;
+    bottom: 50%;
+    left: 50%;
+    right: 50%;
+    margin-top: -16px;
+    margin-bottom: -16px;
+    margin-left: -31px;
+    margin-right: -31px;
+  }
+  
+  .demo4 {
+    background-color: #ccc;
+  }
+  
+  .demo4-con {
+    background-color: greenyellow;
+    position: absolute;
+    top: 50%;
+    bottom: 50%;
+    left: 50%;
+    right: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  .demo5 {
+    background-color: red;
+    padding: 0 50%;
+  }
+  
+  .demo5-con {
+    background-color: #ccc;
+    transform: translate(-50%, 100%);
+  }
+  
+  .demo6 {
+    width: 100%;
+    background-color: yellowgreen;
+  }
+  
+  .demo6-con {
+    background-color: blue;
+    color: white;
+    position: absolute;
+    top: calc(50% - 16px);
+    left: calc(50% - 31px);
+  }
+  
+  .demo7 {
+    width: 100%;
+    background-color: #ececec;
+  }
+
+  .bg-pink {
+    background-color: pink;
+  }
+
+  .table {
+    display: table;
+  }
+
+  .table-row {
+    display: table-row;
+    width: 100%;
+  }
+
+  .table-cell {
+    display: table-cell;
+  }
+
+  .vertical-top {
+    vertical-align: top;
+  }
+
+  .vertical-middle {
+    vertical-align: middle;
+  }
+
+  .vertical-bottom {
+    vertical-align: bottom;
+  }
+
+  .table-row:first-child .table-cell {
+    border-top: 1px solid red;
+  }
+
+  .table-row .table-cell {
+    border-bottom: 1px solid red;
+    padding: 18px;
+  }
+
+  .table-row .table-cell:not(:first-child:last-child) {
+    border-left: 1px solid red;
+  }
+  

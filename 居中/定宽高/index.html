@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Home</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main>
+      <fieldset>
+        <legend>定宽高实现垂直居中</legend>
+        <fieldset>
+          <legend>demo1 利用line-height实现居中</legend>
+          <div class="demo1">
+            <span>demo1</span>
+          </div>
+        </fieldset>
+        <br />
+        <fieldset>
+          <legend>demo2 利用绝对定位 + margin auto实现居中</legend>
+          <div class="wrapper demo2">
+            <div class="content demo2-con">demo2</div>
+          </div>
+        </fieldset>
+        <br />
+        <fieldset>
+          <legend>demo3 利用绝对定位 + -margin 实现居中</legend>
+          <div class="wrapper demo3">
+            <div class="content demo3-con">demo3</div>
+          </div>
+        </fieldset>
+        <br />
+        <fieldset>
+          <legend>demo4 利用绝对定位 + translate 实现居中</legend>
+          <div class="wrapper demo4">
+            <div class="content demo4-con">demo4</div>
+          </div>
+        </fieldset>
+        <br />
+        <fieldset>
+          <legend>demo5 利用transform: translate(-50%, 100%)来实现</legend>
+          <div class="wrapper demo5">
+            <div class="content demo5-con">demo5</div>
+          </div>
+        </fieldset>
+        <br />
+        <fieldset>
+          <legend>demo6 绝对定位 + calc实现</legend>
+          <div class="wrapper demo6">
+            <div class="content demo6-con">demo6</div>
+          </div>
+        </fieldset>
+        <br />
+        <fieldset>
+          <legend>
+            demo7 设置父元素的dispaly为table-cell，vertical-align为 middle
+          </legend>
+          <div class="wrapper demo7 table">
+            <div class="content table-row bg-pink">
+                <div class="table-cell vertical-middle">demo7-1</div>
+                <div class="table-cell vertical-middle">demo7-2</div>
+                <div class="table-cell vertical-middle">demo7-3</div>
+                <div class="table-cell vertical-middle">demo7-4</div>
+                <div class="table-cell vertical-middle">demo7-5</div>
+            </div>
+            <div class="content table-row bg-pink">
+                <div class="table-cell vertical-middle">demo7-1</div>
+                <div class="table-cell vertical-middle">demo7-2</div>
+                <div class="table-cell vertical-middle">demo7-3</div>
+                <div class="table-cell vertical-middle">demo7-4</div>
+                <div class="table-cell vertical-middle">demo7-5</div>
+            </div>
+            <div class="content table-row bg-pink">
+                <div class="table-cell vertical-middle">demo7-1</div>
+                <div class="table-cell vertical-middle">demo7-2</div>
+                <div class="table-cell vertical-middle">demo7-3</div>
+                <div class="table-cell vertical-middle">demo7-4</div>
+                <div class="table-cell vertical-middle">demo7-5</div>
+            </div>
+          </div>
+        </fieldset>
+      </fieldset>
+    </main>
+  </body>
+</html>

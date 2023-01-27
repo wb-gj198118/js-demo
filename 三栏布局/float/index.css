@@ -1,0 +1,20 @@
+.left {
+    background-color: red;
+    float: left;
+    width: 200px;
+}
+
+.right {
+    float: right;
+    background-color: yellowgreen;
+    width: 200px;
+}
+
+.main {
+    background-color: green;
+    height: 400px;
+    /* 方案一. 利用margin 方式 */
+    margin: 0 200px;
+    /* 方案二. 利用BFC方式 */
+    /* overflow: hidden; */
+}
