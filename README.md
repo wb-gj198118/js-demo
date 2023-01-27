@@ -1,1 +1,1 @@
-# stydy
+# study
