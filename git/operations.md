@@ -257,5 +257,3 @@ $ git revert [commit]
 # git archive
 ```
 
-（完）
-
