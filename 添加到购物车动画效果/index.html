@@ -45,7 +45,7 @@
             height: 100%;
             background-color: red;
             border-radius: 50%;
-            animation: moveX .8s linear;
+            animation: moveX .8s linear infinite;
         }
 
         .plus-icon::before {
@@ -83,16 +83,11 @@
             background-image: url('./images/car.jpg');
             background-size: 100%;
             background-repeat: no-repeat;
-            background-color: red;
         }
 
-        ul,
-        li {
-            list-style: none;
-        }
-
-        li {
+        section {
             display: flex;
+            align-items: center;
             justify-content: space-between;
             gap: 10px;
             border: 1px solid papayawhip;
@@ -106,7 +101,6 @@
             width: 40px;
             height: 40px;
             border: 0;
-            background-color: red;
             border-radius: 10px;
             color: white;
             cursor: pointer;
@@ -115,61 +109,55 @@
 </head>
 
 <body>
-    <ul>
-        <li>
-            <div class="content">content</div>
-            <div>
-                <img src="./images/add.jpg" width="100%" height="100%" class="add-car" />
-            </div>
-
-        </li>
-        <li>
-            <div class="content">content</div>
-            <div>
-                <img src="./images/add.jpg" width="100%" height="100%" class="add-car" />
-            </div>
-        </li>
-        <li>
-            <div class="content">content</div>
-            <div>
-                <img src="./images/add.jpg" width="100%" height="100%" class="add-car" />
-            </div>
-        </li>
-    </ul>
+    <div class="container">
+        <section>
+            <div class="shop">商品1</div>
+            <img src="./images/add.jpg" class="add-car" />
+        </section>
+        <section>
+            <div class="shop">商品2</div>
+            <img src="./images/add.jpg" class="add-car" />
+        </section>
+        <section>
+            <div class="shop">商品3</div>
+            <img src="./images/add.jpg" class="add-car" />
+        </section>
+    </div>
 
     <div class="car"></div>
 
     <script>
-        const btns = document.querySelectorAll('.add-car');
+        const container = document.querySelector('.container');
         const car = document.querySelector('.car');
-        const PLUS_SIZE = 30;
+        const PLUS_SIZE = car.offsetWidth / 2;
 
-        btns.forEach(btn => {
-            const handleClick = () => {
-                const box = document.createElement('div');
-                box.className = 'plus';
-                box.innerHTML = `<div class="plus-icon"></div>`;
+        const handleClick = (evt) => {
+            const el = evt.target;
+            if (!el.classList.contains("add-car")) return;
+            const box = document.createElement('div');
+            box.className = 'plus';
+            box.innerHTML = `<div class="plus-icon"></div>`;
 
-                const btnRect = btn.getBoundingClientRect();
-                const left = btnRect.left + (btnRect.width / 2) - (PLUS_SIZE / 2);
-                const top = btnRect.top - PLUS_SIZE;
+            const btnRect = el.getBoundingClientRect();
+            const left = btnRect.left + (btnRect.width / 2) - (PLUS_SIZE / 2);
+            const top = btnRect.top - PLUS_SIZE;
 
-                const carRect = car.getBoundingClientRect();
-                const x = carRect.left + (carRect.width / 2) - (PLUS_SIZE / 2) - left;
-                const y = carRect.top - PLUS_SIZE - top;
+            const carRect = car.getBoundingClientRect();
+            const x = carRect.left + (carRect.width / 2) - (PLUS_SIZE / 2) - left;
+            const y = carRect.top - PLUS_SIZE - top;
 
-                box.style.setProperty('--left', `${left}px`);
-                box.style.setProperty('--top', `${top}px`);
-                box.style.setProperty('--x', `${x}px`);
-                box.style.setProperty('--y', `${y}px`);
+            box.style.setProperty('--left', `${left}px`);
+            box.style.setProperty('--top', `${top}px`);
+            box.style.setProperty('--x', `${x}px`);
+            box.style.setProperty('--y', `${y}px`);
 
-                box.addEventListener('animationend', () => {
-                    box.remove();
-                });
-                document.body.appendChild(box);
-            }
-            btn.addEventListener('click', handleClick, false);
-        });
+            box.addEventListener('animationend', () => {
+                box.remove();
+            });
+            document.body.appendChild(box);
+        }
+
+        container.addEventListener('click', handleClick, false);
     </script>
 </body>
 
