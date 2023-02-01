@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+</head>
+
+<body>
+    <style type="text/css">
+        body {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            --animation-time: 20s;
+        }
+        .continar {
+            position: relative;
+            width: 500px;
+            height: 500px;
+            border: 1px peru solid;
+            border-radius: 50%;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: rotate linear infinite var(--animation-time);
+            background: url('./images/1.jpg') no-repeat;
+            background-position: center center;
+            background-size: 100%;
+        }
+
+        .continar::before {
+            content: '';
+            display: inline-block;
+            width: 150px;
+            height: 150px;
+            background-image: url('./images/1.jpg');
+            background-repeat: no-repeat;
+            background-size: 100%;
+            background-position: center center;
+            border-radius: 50%;
+            /* 中心点位置不动，可以利用动画的反转让其看似静止状态 */
+            animation: rotate linear infinite reverse var(--animation-time);
+        }
+
+        .continar .item-box {
+            width: 100%;
+            height: 100%;
+            background-color: aqua;
+            animation: rotate linear infinite reverse var(--animation-time);
+            border-radius: 50%;
+        }
+
+        .item-box img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .continar .item {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+        }
+
+        @keyframes rotate {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+    <div class="continar">
+        <div class="item">
+            <div class="item-box">
+                <img src="./images/1.jpg" />
+            </div>
+        </div>
+        <div class="item">
+            <div class="item-box">
+                <img src="./images/1.jpg" />
+            </div>
+        </div>
+        <div class="item">
+            <div class="item-box"><img src="./images/1.jpg" /></div>
+        </div>
+        <div class="item">
+            <div class="item-box"><img src="./images/1.jpg" /></div>
+        </div>
+        <div class="item">
+            <div class="item-box"><img src="./images/1.jpg" /></div>
+        </div>
+        <div class="item">
+            <div class="item-box"><img src="./images/1.jpg" /></div>
+        </div>
+        <div class="item">
+            <div class="item-box"><img src="./images/1.jpg" /></div>
+        </div>
+    </div>
+    <script>
+        const item = document.querySelectorAll(".item")
+        const r = document.querySelector(".continar").clientWidth / 2
+        const count = item.length
+        const pieceDeg = 360 / count
+        for (let i = 0; i < count; i++) {
+            let t = i * pieceDeg
+            t = (Math.PI / 180) * t
+            const x = Math.sin(t) * r,
+                y = -Math.cos(t) * r;
+            item[i].style.transform = `translate(${x}px,${y}px)`
+        }
+    </script>
+</body>
+
+</html>

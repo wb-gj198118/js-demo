@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>CSS 旋转霓虹灯变边框</title>
+    <style>
+
+        * {
+            box-sizing: border-box
+        }
+
+        /* 正式代码开始 */
+        @property --hue {
+            syntax: '<integer>';
+            inherits: true;
+            initial-value: 0;
+        }
+
+        @property --deg {
+            syntax: '<angle>';
+            inherits: true;
+            initial-value: 0deg;
+        }
+        .icon {
+            width: 1em;
+            height: 1em;
+            vertical-align: -0.15em;
+            fill: currentColor;
+            overflow: hidden;
+        }
+
+        .wrap {
+            align-content: flex-start;
+        }
+
+        img {
+            width: 100%;
+        }
+
+        .title {
+            width: 100%;
+            display: flex;
+        }
+
+        .title span {
+            font-size: 40px;
+            font-family: AlimamaShuHeiTi-Bold;
+            padding: 20px;
+            margin-top: 50px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        .effect {
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            align-content: center;
+            justify-content: center;
+        }
+
+        .result {
+            position: relative;
+        }
+
+        @keyframes rotate {
+            0% {
+                --hue: 0;
+                --deg: 0deg;
+            }
+
+            100% {
+                --hue: 360;
+                --deg: 360deg;
+            }
+        }
+
+
+        .box {
+            animation: rotate 3s linear infinite;
+            border: 2px solid transparent;
+            border-image-slice: 1;
+            border-image-width: 2px;
+            border-image-source:
+                conic-gradient(from var(--deg),
+                    hsla(calc(var(--hue) + 180), 100%, 75%, 0.0) 33%,
+                    hsla(calc(var(--hue) + 180), 100%, 75%, 0.5) 66%,
+                    hsla(calc(var(--hue) + 360), 100%, 60%, 1.0) 100%);
+            width: 5vh;
+            height: 20vh;
+        }
+
+        .box-other {
+            transform: translate(-50%, -50%) scaleX(-1);
+            animation-delay: -1.5s;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 20vh;
+            height: 5vh;
+            z-index: 2;
+        }
+       
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <!-- 标题 -->
+        <div class="title">
+            <span>旋转霓虹灯变边框</span>
+        </div>
+        <!-- 展示效果 -->
+        <div class="effect">
+            <div class="result">
+                <div class="box">1</div>
+                <div class="box box-other">2</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
