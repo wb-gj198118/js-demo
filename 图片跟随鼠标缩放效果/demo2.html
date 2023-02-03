@@ -8,7 +8,11 @@
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <title>Demo2</title>
     <style>
-
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
         .container {
             display: flex;
             align-items: flex-start;
@@ -23,8 +27,8 @@
 
         .mirror {
             visibility: hidden;
-            width: 150px;
-            height: 150px;
+            width: 180px;
+            height: 180px;
             border-radius: 50%;
             border: 2px solid white;
             position: absolute;
@@ -65,21 +69,13 @@
         // 大图
         const bigImg = mirror.querySelector('img');
 
-        function debounce(fn, dealy) {
-            let timer = null;
-            return function (...args) {
-                if (timer) clearTimeout(timer);
-                let ctx = this;
-                timer = setTimeout(function () {
-                    fn.call(ctx, ...args);
-                }, dealy);
-            }
-        }
+        const boundingRect = container.getBoundingClientRect();
 
         // 移动事件处理
-        container.addEventListener('mousemove', debounce(evt => {
-            const _left = evt.target.offsetLeft;
-            const _top = evt.target.offsetTop;
+        container.addEventListener('mousemove', evt => {
+            const target = evt.target;
+            const _left = target.offsetLeft;
+            const _top = target.offsetTop;
             const x = evt.clientX;
             const y = evt.clientY;
             let mLeft = x - _left - mirror.offsetWidth / 2;
@@ -91,6 +87,9 @@
             // mirror.style.left = mLeft + 'px';
             // mirror.style.top = mTop + 'px';
 
+            mLeft = Math.min(Math.max(mLeft, boundingRect.left), boundingRect.right - mirror.offsetWidth);
+            mTop = Math.min(Math.max(mTop, boundingRect.top), boundingRect.bottom - mirror.offsetHeight);
+
             mirror.style.transform = 'translate3d(' + mLeft + 'px ,' + mTop + 'px, 0)';
 
             // 计算比例
@@ -100,9 +99,7 @@
             bigImg.style.setProperty('--biLeft', -biLeft + 'px');
             bigImg.style.setProperty('--biTop', -biTop + 'px');
 
-            evt.preventDefault();
-
-        }, 100), false);
+        });
     </script>
 </body>
 

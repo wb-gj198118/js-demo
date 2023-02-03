@@ -113,16 +113,18 @@
             x = e.clientX - smallRect.left - mask.halfWidth;
             y = e.clientY - smallRect.top - mask.halfHeight;
             // 边界判断
-            if (x < bounding.left) {
-                x = bounding.left;
-            } else if (x > bounding.right) {
-                x = bounding.right;
-            }
-            if (y < bounding.top) {
-                y = bounding.top;
-            } else if (y > bounding.bottom) {
-                y = bounding.bottom;
-            }
+            // if (x < bounding.left) {
+            //     x = bounding.left;
+            // } else if (x > bounding.right) {
+            //     x = bounding.right;
+            // }
+            // if (y < bounding.top) {
+            //     y = bounding.top;
+            // } else if (y > bounding.bottom) {
+            //     y = bounding.bottom;
+            // }
+            x = Math.min(Math.max(x, bounding.left), bounding.right);
+            y = Math.min(Math.max(y, bounding.top), bounding.bottom);
             mask.element.style.transform = 'translate3d(' + x + 'px ,' + y + 'px, 0)';
             bigImg.style.transform = 'translate3d(' + (x * -2) + 'px ,' + (y * -2) + 'px, 0)';
             e.preventDefault();
