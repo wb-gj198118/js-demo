@@ -1,0 +1,106 @@
+@containerSize: 150px; // 容器尺寸
+@ballSize: 10px;
+@n: 36;
+@pdeg: 360deg / @n;
+@ani-duration: 2000ms;
+
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    display: flex;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+    background-color: burlywood;
+}
+
+.container {
+    width: @containerSize;
+    height: @containerSize;
+    margin: 50px auto;
+    position: relative;
+    border-radius: 50%;
+    perspective: 100px;
+    transform-style: preserve-3d;
+    .dot {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: @ballSize;
+        height: @ballSize;
+        margin-left: calc(-@ballSize / 2);
+        margin-top: calc(-@ballSize / 2);
+
+        &::after,&::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+        }
+
+        &::before {
+            top: -100%;
+            background-color: #000;
+            animation: moveBlackDot @ani-duration infinite;
+        }
+
+        &::after {
+            top: 100%;
+            background-color: #fff;
+            animation: moveWhiteDot @ani-duration infinite;
+        }
+    }
+}
+
+@keyframes moveBlackDot {
+    0% {
+        animation-timing-function: ease-in;
+    }
+    25% {
+        transform: translate3d(0, 100%, @ballSize);
+        animation-timing-function: ease-out;
+    }
+    50% {
+        transform: translate3d(0, 200%, 0);
+        animation-timing-function: ease-in;
+    }
+    75% {
+        transform: translate3d(0, 100%, -@ballSize);
+        animation-timing-function: ease-out;
+    }
+}
+
+@keyframes moveWhiteDot {
+    0% {
+        animation-timing-function: ease-in;
+    }
+    25% {
+        transform: translate3d(0, -100%, -@ballSize);
+        animation-timing-function: ease-out;
+    }
+    50% {
+        transform: translate3d(0, -200%, 0);
+        animation-timing-function: ease-in;
+    }
+    75% {
+        transform: translate3d(0, -100%, @ballSize);
+        animation-timing-function: ease-out;
+    }
+}
+
+.loop(@i) when(@i <= @n) {
+    .dot:nth-child(@{i}) {
+        transform: rotate((@pdeg * @i)) translateY((@containerSize / 2));
+
+        &::before, &::after {
+            animation-delay: -(@ani-duration / @n * 6 * @i);
+        }
+    }
+    .loop(@i + 1)
+}
+
+.loop(1);

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loading</title>
+    <style>
+        body {
+            display: flex;
+            height: 100vh;
+            align-items: center;
+            justify-content: center;
+        }
+        .loading > span {
+            display: inline-block;
+            text-transform: uppercase;
+            padding: 8px;
+            animation: loadingWord 800ms ease-in infinite alternate;
+            animation-delay: calc(var(--index) * 100ms + 200ms);
+        }
+
+        @keyframes loadingWord {
+            0% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(0);
+            }
+            100% {
+                transform: translateY(-16px);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="loading" class="loading">Loadinng</div>
+    <script>
+        const loadingEle = document.querySelector('#loading');
+        const txts = loadingEle.innerHTML.split('');
+        let loadingChildEle = '';
+        txts.forEach((ele, i) => {
+            loadingChildEle += '<span style="--index:' + i + '">' + ele + '</span>';
+        })
+        loadingEle.innerHTML = loadingChildEle;
+    </script>
+</body>
+
+</html>

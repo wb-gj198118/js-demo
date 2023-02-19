@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>时钟式Loading</title>
+</head>
+<style>
+    body {
+        display: flex;
+        height: 100vh;
+        align-items: center;
+        justify-content: center;
+        background-color: #ccc;
+    }
+
+    .loading {
+        width: 100px;
+        height: 100px;
+        border: 4px solid #fff;
+        border-radius: 50%;
+        position: relative;
+    }
+
+    .loading::after, .loading::before {
+        content: '';
+        display: inline-block;
+        height: 6px;
+        position: absolute;
+        left: 50px;
+        top: 50px;
+        background-color: #fff;
+        border-radius: 2px;
+        transform-origin: 3px 3px;
+    }
+
+    .loading::before {
+        width: 30px;
+        transform: rotate(-90deg);
+        animation: time 12s linear infinite;
+    }
+
+    .loading::after {
+        width: 45px;
+        transform: rotate(-90deg);
+        animation: time 2s linear infinite;
+    }
+
+    @keyframes time {
+        0% {
+            transform: rotate(-90deg);
+        }
+        100% {
+            transform: rotate(270deg);
+        }
+    }
+
+</style>
+
+<body>
+    <div class="container">
+        <div id="loading" class="loading"></div>
+    </div>
+</body>
+
+</html>
