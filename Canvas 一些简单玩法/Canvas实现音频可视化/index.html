@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>利用Canvas实现音频可视化</title>
+    <link href='https://fonts.loli.net/css?family=Gaegu:300' rel='stylesheet'>
+    <style>
+        html {
+            height: 100%;
+        }
+
+        body {
+            margin: 0;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #output {
+            width: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <select name="" id="mode">
+        <option value="1">line</option>
+        <option value="2">rect</option>
+    </select>
+    &nbsp;&nbsp;
+    <select name="" id="music">
+        <option value="左手指月-萨顶顶.mp3">左手指月-萨顶顶.mp3</option>
+        <option value="星辰大海.mp3">星辰大海.mp3</option>
+    </select>
+    <div id="output"></div>
+    <audio autoplay src="星辰大海.mp3" loop></audio>
+    <script src="index.js" type="module"></script>
+</body>
+
+</html>
