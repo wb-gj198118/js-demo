@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>监听DOM元素的大小的变化</title>
+    <style>
+        body {
+            display: grid;
+            place-items: center;
+        }
+
+        #container {
+            width: 500px;
+            height: 500px;
+            border: 10px solid #efefef;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: scroll;
+            resize: both;
+            cursor: ew-resize;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <p>宽：500 高：500</p>
+    </div>
+
+    <script>
+        const container = document.querySelector('#container')
+        const observer = new ResizeObserver((e) => {
+            const con = e[0]
+            const { width, height } = con.contentRect
+            container.children[0].innerText = `宽：${width} 高：${height}`
+        })
+        observer.observe(container)
+    </script>
+</body>
+
+</html>

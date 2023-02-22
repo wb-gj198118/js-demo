@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>js文字转语音</title>
+    <style>
+        html, body {
+            height: 100%;
+            width: 100%;
+            display: grid;
+            place-items: center;
+            align-content: space-around;
+        }
+    </style>
+</head>
+<body>
+    <textarea id="input"></textarea>
+    <button onclick="handleTransform()">一键转换</button>
+    <button onclick="handleChangeVoice()">换一种声音</button>
+    <button onclick="handlePlay()">播放</button>
+
+    <script>
+        class speaker {
+            speaker;
+            constructor (text = '', volume = 1, lang = 'zh-CN') {
+                this.speaker = new SpeechSynthesisUtterance();
+                this.speaker.text = text;
+                this.speaker.volume = volume;
+                this.speaker.lang = lang;
+            }
+
+            play () {
+                this.stop();
+                speechSynthesis.speak(this.speaker);
+            }
+
+            stop () {
+                speechSynthesis.cancel();
+            }
+
+            setText (text = '') {
+                this.speaker.text = text;
+            }
+
+            setVolume (volume = 1) {
+                if (volume < 0 || volume > 1) return;
+                this.speaker.volume = volume;
+            }
+
+            setVoice (voice) {
+                this.speaker.voice = voice;
+            }
+        }
+
+        const input = document.querySelector('#input');
+        let speak = new speaker();
+        let voiceList = [];
+        let index = 0;
+        speechSynthesis.addEventListener('voiceschanged', () => {
+            voiceList = speechSynthesis.getVoices();
+        });
+
+        const handleTransform = () => {
+            speak.setText(input.value);
+        }
+
+        const handlePlay = () => {
+            speak.play();
+            setTimeout(() => {
+                speak.stop();
+            }, 10000);
+        }
+
+        const handleChangeVoice = () => {
+            index++;
+            speak.setVoice(voiceList[index]);
+            console.log('声音已更换', voiceList[index]);
+        }
+    </script>
+</body>
+</html>
