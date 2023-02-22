@@ -9,8 +9,8 @@ const p = {
     r: 50,
 };
 document.onmousemove = (e) => {
-    p.x = e.clientX;
-    p.y = e.clientY;
+    p.x = e.clientX || e.pageX;
+    p.y = e.clientY || e.pageY;
     render();
 };
 const render = () => {
