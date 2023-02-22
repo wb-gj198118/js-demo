@@ -12,7 +12,7 @@ const getCount = (nums = []) => {
     }, {});
 };
 
-// 获取大于等于{count}的key
+// 获取{obj}中大于等于{count}的key
 const getKeys = (obj, count = 1) => {
     if (!obj || count <= 1) return obj;
     const result = Object.keys(obj).reduce((prev, curr) => {
