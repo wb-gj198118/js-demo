@@ -24,7 +24,8 @@ const getKeys = (obj, count = 1) => {
     return result;
 };
 
-function getUrlQueryParams(url, key) {
+function getUrlQueryParams(url, options) {
+    console.log(' url: ', url);
     const params = new URL(decodeURIComponent(url)).searchParams;
     const keys = [...params.keys()];
     const conts = getCount(keys);
@@ -33,6 +34,7 @@ function getUrlQueryParams(url, key) {
     const result = {};
     let index = 0;
     for (let k of keys) {
+        // key出现了多次，表示它应该为数组
         if (
             Array.isArray(contsKs) &&
             contsKs.length > 0 &&
@@ -42,11 +44,17 @@ function getUrlQueryParams(url, key) {
                 result[k] = [];
             }
             result[k].push(values[index]);
+            // 数组 如: '1, 2, 3'
         } else if (values[index] && values[index].includes(',') && !values[index].includes('[')) {
             if (!result[k]) {
                 result[k] = [];
             }
-            result[k] = values[index].split(',');
+            // 对应的key里面的值均为数组
+            if (options && options[k] === 'number') {
+                result[k] = values[index].split(',').map(Number);
+            } else { // 非数组
+                result[k] = values[index].split(',');
+            }
         } else {
             try {
                 result[k] = JSON.parse(values[index]);
@@ -56,13 +64,12 @@ function getUrlQueryParams(url, key) {
         }
         index++;
     }
-    if (key !== null && typeof key !== 'undefined' && typeof result[key] !== 'undefined') return result[key];
     return result;
 }
 
 let a1 = [1, 2, 3];
 let a2 = [4, 5, 6];
 
-const urlParams = getUrlQueryParams(`https://www.baidu.com?a=1&a=2&b=${JSON.stringify(a1)}&c=0&d=${a2}`);
+const urlParams = getUrlQueryParams(`https://www.baidu.com?a=1&a=2&b=${JSON.stringify(a1)}&c=0&d=${a2}`, { d: 'number' });
 
 console.log('urlParams => ', urlParams);
