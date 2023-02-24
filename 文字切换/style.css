@@ -1,0 +1,65 @@
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: #000;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 50px;
+    width: 100%;
+    height: 100%;
+    color: #fff;
+    font-size: 60px;
+    filter: contrast(15);
+    background-color: #000;
+}
+
+.word {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    text-align: center;
+    width: 100%;
+    filter: blur(0px);
+    transform: translate(-50%, -50%);
+    animation: wordchange 8s infinite ease-in-out;
+}
+
+.word3 {
+    animation-delay: -8s;
+}
+
+.word2 {
+    animation-delay: -6s;
+}
+
+.word1 {
+    animation-delay: -4s;
+}
+
+.word0 {
+    animation-delay: -2s;
+}
+
+@keyframes wordchange {
+
+    0%,
+    10%,
+    100% {
+        filter: blur(0px);
+        opacity: 1;
+    }
+
+    70%,
+    80% {
+        filter: blur(80px);
+        opacity: 0;
+    }
+}

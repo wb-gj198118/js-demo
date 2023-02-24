@@ -1,0 +1,17 @@
+
+.bg {
+  background-image: url(./bg.jpg);
+  width: 1000px;
+  height: 500px;
+  margin-left: 60px;
+}
+
+#canvas {
+  position: fixed;
+  background:rgba(0,0,0,0.6);
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 2;
+}
