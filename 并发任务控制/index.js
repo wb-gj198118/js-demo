@@ -1,6 +1,6 @@
 class SuperTask {
     constructor(count = 2) {
-        this.runningCount = 0;
+        this.runningCount = 0; // 当前正在运行的任务数量
         this.parallelCount = count; // 一次请求时的并发数量
         this.tasks = [];
     }
@@ -18,12 +18,12 @@ class SuperTask {
 
     // 依次运行任务列表中的所有任务
     runTask() {
-        while (this.runningCount < this.parallelCount && this.tasks.length > 0) {
+        if (this.runningCount < this.parallelCount && this.tasks.length > 0) {
             const { task, resolve, reject } = this.tasks.shift();
-            this.runningCount++;
+            this.runningCount ++;
             // 此处并不严谨哈，应该需要考虑边界值，就是非promise对象的情况，这里暂时不考虑
             task().then(resolve, reject).finally(() => {
-                this.runningCount--;
+                this.runningCount --;
                 this.runTask();
             })
         }
