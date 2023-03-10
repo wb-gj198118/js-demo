@@ -18,12 +18,12 @@ class SuperTask {
 
     // 依次运行任务列表中的所有任务
     runTask() {
-        while(this.runningCount < this.parallelCount && this.tasks.length > 0) {
+        while (this.runningCount < this.parallelCount && this.tasks.length > 0) {
             const { task, resolve, reject } = this.tasks.shift();
-            this.runningCount ++;
+            this.runningCount++;
             // 此处并不严谨哈，应该需要考虑边界值，就是非promise对象的情况，这里暂时不考虑
             task().then(resolve, reject).finally(() => {
-                this.runningCount --;
+                this.runningCount--;
                 this.runTask();
             })
         }
