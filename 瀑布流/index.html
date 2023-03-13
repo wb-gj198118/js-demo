@@ -43,21 +43,23 @@
         const max = 300;
         const min = 100;
 
+        const fragment = document.createDocumentFragment();
+
         function createDiv ()
         {
             Array(50).fill(null).map((item, index) => {
                 let rgb = [parseInt(Math.random() * (255 + 1)), parseInt(Math.random() * (255 + 1)), parseInt(Math.random() * (255 + 1))];
                 let height = parseInt(Math.random() * (max - min + 1) + min);
                 let [r, g, b] = rgb;
-                const div = `
-                <div style="height:${height}px; background-color:rgb(${r},${g},${b})">
-                    <span>${index}</span>
-                </div>
-                `
-                app.insertAdjacentHTML('beforeend', div)
+                const div = document.createElement('div');
+                div.style.cssText = `height:${height}px; background-color:rgb(${r},${g},${b})`;
+                div.insertAdjacentHTML('beforeend', `<span>${index}</span>`);
+                fragment.append(div);
             });
         }
-        createDiv()
+        createDiv();
+
+        app.appendChild(fragment);
     </script>
 </body>
 </html>
