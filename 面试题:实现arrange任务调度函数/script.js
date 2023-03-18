@@ -62,3 +62,23 @@ arrange('William').do('commit').execute();
 // arrange('William').wait(5).do('commit').execute();
 
 // arrange('William').waitFirst(5).do('push').execute();
+
+const arr = [0, 0, 1];
+
+function moveZeroToEnd(arr) {
+    let i = j = 0;
+    let len = arr.length;
+    while (j < len) {
+        if (arr[j] === 0) {
+            j++;
+            continue;
+        }
+        arr[i ++] = arr[j ++];
+    }
+    for (let k = i; k < j; k++) {
+        arr[k] = 0;
+    }
+    return arr;
+}
+
+console.log(moveZeroToEnd(arr));

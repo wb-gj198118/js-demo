@@ -1,0 +1,69 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    place-items: center;
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(45deg, pink, aliceblue, papayawhip);
+}
+
+.container {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    margin: 8px;
+    position: relative;
+    margin: 0 auto;
+}
+
+.carousel {
+    display: flex;
+    place-items: center;
+    overflow: hidden;
+    margin: 0 auto;
+}
+
+.carousel-item {
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: 100%;
+    aspect-ratio: 1;
+    transition: 500ms linear;
+}
+
+img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.indacitor {
+    background-color: transparent;
+    position: absolute;
+    bottom: 20px;
+    height: 20px;
+    line-height: 20px;
+    margin: 0 auto;
+    transform: translateX(calc(50vw - 0px));
+}
+
+.indacitor span {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-color: white;
+    border-radius: 50%;
+}
+
+.indacitor span + span {
+    margin-left: 8px;
+}
+
+.indacitor span.active {
+    background-color: plum;
+}
