@@ -1,9 +1,9 @@
 console.log(' b1 ');
-setTimeout(function () {
+setTimeout(() => {
     const lis = document.querySelectorAll('li');
     lis.forEach((element, index) => {
-        if (index === 10) {
+        if (index === Math.floor(lis.length / 2)) {
             element.insertAdjacentHTML('beforebegin', '<li>bbb - OK - bbb</li>');
         }
     });
-}, 1000);
+}, daily);
