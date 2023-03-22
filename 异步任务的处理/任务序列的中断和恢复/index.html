@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>异步任务的中断和恢复</title>
+    <style>
+        button {
+            padding: 8px 16px;
+            letter-spacing: 8px;
+        }
+
+        button+button {
+            margin-left: 8px;
+        }
+    </style>
+</head>
+
+<body>
+    <button id="start" class="start">开始</button>
+    <button id="pause" class="pause">暂停</button>
+    <script src="script.js"></script>
+    <script>
+        const tasks = [];
+        for (let i = 0; i < 5; i++) {
+            tasks.push(() => new Promise((resolve, reject) => {
+                setTimeout(function () {
+                    resolve(i + 1);
+                }, 2000);
+            }));
+        }
+
+        const processor = new processTasks(tasks);
+
+        const start = document.querySelector('.start');
+        const pause = document.querySelector('.pause');
+        start.onclick = async function () {
+            console.log('点击开始');
+            const result = await processor.start();
+            console.log('任务全部执行完成了', result);
+        }
+        pause.onclick = async function () {
+            console.log('点击暂停');
+            await processor.pause();
+        }
+    </script>
+</body>
+
+</html>

@@ -4,14 +4,15 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>transform</title>
+    <title>transform vs position</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        html,body {
+        html, body {
+            padding: 16px;
             height: 100%;
         }
         .ball {
@@ -39,12 +40,22 @@
                 transform: translate(200px);
             }
         }
+
+        button {
+            width: 200px;
+            padding: 8px 16px;
+            font-size: 24px;
+            background: linear-gradient(50%, #ccc, #555);
+        }
     </style>
 </head>
 <body>
+    <button onclick="delay(5000)">启动循环</button>
+    <br />
+    <br />
     <div class="ball ball-1"></div>
+    <br />
     <div class="ball ball-2"></div>
-    <button onclick="delay(5000)">按钮</button>
 
     <script>
         function delay (duration) {

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Demo</title>
+    <meta charset="utf-8">
+    <meta name="description" content="project">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <main class="main">
+        <aside class="aside">
+            <nav>
+                <figure>
+                    <p><a href="#a1">1. BFC是什么</a></p>
+                    <p><a href="#a2">2. 布局规则</a></p>
+                    <p><a href="#a3">3. 开启BFC的方式</a></p>
+                    <p><a href="#a4">4. 可以解决以下几种常见问题</a></p>
+                    <p><a href="#demo">5. demo</a></p>
+                </figure>
+            </nav>
+        </aside>
+        <article class="content wrap">
+            <section id="a1">
+                <figure>
+                    <figcaption>
+                        <h2>BFC是什么</h2>
+                    </figcaption>
+                    <p>BFC（Block Formatting Context），即块级格式化上下文，它是页面中的一块渲染区域，并且有一套属于自己的渲染规则。</p>
+                    <p>也可以简单的理解为**某个元素的一个 CSS 属性**，只不过这个属性**不能被开发者显式的修改**，拥有这个属性的元素对内部元素和外部元素会表现出一些特性，这就是BFC。</p>
+                </figure>
+            </section>
+            <section id="a2">
+                <figure>
+                    <figcaption>
+                        <h2>布局规则</h2>
+                    </figcaption>
+                    <p>1. 内部块会在垂直方向上一个接一个的放置，类似块级元素</p>
+                    <p>2. 垂直方向上的距离会由margin决定，同一个bfc里面相邻块的margin会发生重叠</p>
+                    <p>3. 每个块的左外边框会紧贴包含块的坐边框</p>
+                    <p>4. 开启bfc的块不会与浮动块重叠，会挨着浮动元素</p>
+                    <p>5. 每个BFC块都是独立的，互不影响</p>
+                    <p>6. 计算BFC块元素的高度时，浮动元素也会参与其中</p>
+                </figure>
+            </section>
+            <section id="a3">
+                <figure>
+                    <figcaption>
+                        <h2>开启BFC的方式</h2>
+                    </figcaption>
+                    <p>1. 根元素，html元素</p>
+                    <p>2. 浮动元素</p>
+                    <p>3. position非static和releative定位的块</p>
+                    <p>4. 设置display: inline/inline-block/flex/table-cell</p>
+                    <p>5. 设置overflow的值为hidden，auto，scroll</p>
+                </figure>
+            </section>
+            <section id="a4">
+                <figure>
+                    <figcaption>
+                        <h2>可以解决以下几种常见问题</h2>
+                    </figcaption>
+                    <p>1. margin重叠问题</p>
+                    <p>2. 浮动高度塌陷、两栏布局、三栏布局等</p>
+                    <p>3. 单行溢出问题</p>
+                    <p>4. 左右布局等高问题</p>
+                </figure>
+            </section>
+            <section class="demo" id="demo">
+                <figure>
+                    <fieldset>
+                        <legend>BFC相关demo</legend>
+                        <fieldset>
+                            <legend>demo1 margin重叠问题</legend>
+                            <p class="p1">p1</p>
+                            <p class="p2">p2</p>
+                            <!-- margin重叠解决方案，让两个p为各自的bfc模块 -->
+                            <!-- <div class="wrap">
+                            <p class="p2">p2</p>
+                            </div> -->
+                        </fieldset>
+                        <br />
+                        <fieldset>
+                            <legend>
+                                demo2 利用BFC阻止标准流元素被浮动元素覆盖，实现左右两栏布局
+                            </legend>
+                            <div class="aside"></div>
+                            <div class="main"></div>
+                        </fieldset>
+                        <br />
+                        <fieldset>
+                            <legend>demo3 利用BFC阻止标准流元素被浮动元素覆盖，实现三栏布局</legend>
+                            <!-- <div class=""> -->
+                            <div class="left">left</div>
+                            <div class="right">right</div>
+                            <div class="middle">middle</div>
+                            <!-- </div> -->
+                        </fieldset>
+                        <br />
+                        <fieldset>
+                            <legend>demo4 利用BFC解决包含塌陷问题</legend>
+                            <div class="father">
+                                <div class="child"></div>
+                            </div>
+                        </fieldset>
+                        <br />
+                        <fieldset>
+                            <legend>demo5 利用BFC解决单行溢出展示...</legend>
+                            <div class="demo5">
+                                <div class="demo5-con">打发第三方第三方第三方的收</div>
+                            </div>
+                        </fieldset>
+                    </fieldset>
+                </figure>
+            </section>
+        </article>
+    </main>
+</body>
+
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>底部进度条</title>
+	</head>
+	<style>
+		body{
+			padding: 0;
+			margin: 0;
+			background-color: #222;
+		}
+		:root {
+			--primary: #4fc08d;
+		}
+
+		.position-f {
+			position: fixed;
+			z-index: 1111;
+			width: 100%;
+			left: 0px;
+			top: 0px;
+		}
+
+		.background-primary {
+			background: var(--primary);
+		}
+
+		#percentage {
+			display: block;
+			width: 0;
+			height: 0;
+			border-top: 10px solid #aaaaff;
+			transition: all 250ms ease;
+			border-image: -webkit-linear-gradient(#aaaaff, #bbcaff) 20 0;
+		}
+	</style>
+	<body>
+		<div class="position-f">
+			<span class='background-primary' id='percentage' ></span>
+		</div>
+		<div style="height: 3000px;"></div>
+	</body>
+	<script>
+		// 原生js写法
+		document.addEventListener('scroll',function(){
+			let scrollNow = window.pageYOffset;
+			let pageClientHeight = document.documentElement.clientHeight;
+			let scrollHeight = Math.max(
+				document.body.scrollHeight, document.documentElement.scrollHeight,
+				document.body.offsetHeight, document.documentElement.offsetHeight,
+				document.body.clientHeight, document.documentElement.clientHeight
+			) - pageClientHeight; // Full Window Height minus the viewport height
+			
+			let fullWindowHeightInPercentage = Math.round(
+				(scrollNow / scrollHeight) * 100
+			);
+			
+			let percentage = document.getElementById('percentage');
+			console.log(percentage)
+			percentage.style.width = fullWindowHeightInPercentage + '%';
+		})
+	</script>
+</html>

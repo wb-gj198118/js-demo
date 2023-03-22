@@ -1,0 +1,83 @@
+.content {
+    text-align: center;
+}
+
+.left {
+    width: 200px;
+    background-color: azure;
+}
+
+.right {
+    width: calc(100% - 200px);
+    min-height: 200px;
+    height: 400px;
+    background-color: antiquewhite;
+    resize: vertical;
+    overflow: hidden;
+}
+
+.content span {
+    display: inline-block;
+    height: 24px;
+    line-height: 24px;
+}
+
+.demo1 {
+    display: flex;
+}
+
+.demo1 .right {
+    flex: 1 0 200px;
+}
+
+.demo2 {
+    position: relative;
+    overflow: hidden;
+}
+
+.demo2 .left {
+    position: absolute;
+    left: 0;
+    width: 200px;
+    height: 100%;
+}
+
+.demo2 .right {
+    transform: translateX(200px);
+}
+
+.demo3 {
+    overflow: hidden;
+    background-color: azure;
+}
+
+.demo3 .left {
+    float: left;
+    width: 200px;
+    height: 100%;
+}
+
+/* 右边宽度自适应 */
+.demo3 .right {
+    margin-left: 200px;
+}
+
+.demo3 .btns {
+    position: relative;
+    top: -24px;
+    height: 100%;
+}
+
+.demo3 .btns .btn {
+    position: absolute;
+    top: calc(50% - 24px);
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 24px auto;
+    padding: 8px 16px;
+}
+
+.demo4 {
+    display: grid;
+    grid-template: 1fr / 200px 1fr;
+}

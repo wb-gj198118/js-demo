@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>day2 画线</title>
+    <style>
+        body {
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <script type="module">
+        import * as THREE from 'https://unpkg.com/three/build/three.module.js';
+
+        // 创建PerspectiveCamera（透视摄像机）对象
+        const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 500);
+        camera.position.set(0, 0, 100);
+        camera.lookAt(0, 0, 0);
+
+        // 创建线条材质
+        const material = new THREE.LineBasicMaterial({ color: 'red' });
+
+        // 坐标点
+        const points = [];
+        points.push(new THREE.Vector3(-10, 0, 0));
+        points.push(new THREE.Vector3(3, 10, 1));
+        points.push(new THREE.Vector3(10, 5, 11));
+
+        // 建立一个带有坐标点的几何体对象
+        const geometry = new THREE.BufferGeometry().setFromPoints(points);
+
+        // 创建线段，将相应的坐标点连接起来
+        const line = new THREE.Line(geometry, material);
+
+        // 创建场景对象, 并将刚创建的线段添加进来
+        const scene = new THREE.Scene();
+        scene.add(line);
+
+        // 创建渲染器
+        const renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        // 渲染场景，调用渲染器的render方法将创建的对象渲染到页面
+        renderer.render( scene, camera );
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>发布订阅VS观察者模式</title>
+   <style>
+      * {
+         box-sizing: border-box;
+         margin: 0;
+         padding: 0;
+      }
+
+      table {
+         width: 100%;
+      }
+   </style>
+</head>
+
+<body>
+   <table>
+      <thead>
+         <tr>
+            <th>-</th>
+            <th>观察者模式</th>
+            <th>发布订阅模式</th>
+         </tr>
+      </thead>
+      <tbody>
+         <tr>
+            <td>主体</td>
+            <td>Object观察者、Subject目标对象</td>
+            <td>Publisher发布者、Event Channel事件中心、Subscribe订阅者</td>
+         </tr>
+         <tr>
+            <td>主体关系</td>
+            <td>Subject中通过observerList记录ObServer</td>
+            <td>Publisher和Subscribe不想不知道对方，通过中介联系</td>
+         </tr>
+         <tr>
+            <td>优点</td>
+            <td>角色明确，Subject和Object要遵循约定的成员方法</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td>缺点</td>
+            <td>松散耦合，灵活度高，通常应用在异步编程中</td>
+            <td>当事件类型变多时，会增加维护成本</td>
+         </tr>
+         <tr>
+            <td>使用案例</td>
+            <td>双向数据绑定</td>
+            <td>事件总线EventBus</td>
+         </tr>
+      </tbody>
+   </table>
+</body>
+
+</html>

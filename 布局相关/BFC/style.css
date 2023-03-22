@@ -1,0 +1,93 @@
+* {
+    box-sizing: border-box;
+    /* padding: 0;
+    margin: 0; */
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+/* margin 重叠问题 */
+.demo p {
+    color: #f55;
+    background: #fcc;
+    width: 200px;
+    line-height: 100px;
+    text-align: center;
+    margin: 20px;
+}
+
+.p2 {
+    margin-top: 70px;
+}
+
+.wrap {
+    overflow: hidden;
+}
+
+/*
+    利用bfc实现两栏布局
+*/
+.aside {
+    width: 200px;
+    background: #f66;
+}
+
+.main {
+    display: flex;
+    align-items: stretch;
+    /* height: fit-content; */
+    background: #fcc;
+    /* 利用bfc规则让main不与aside重叠 */
+    overflow: hidden;
+}
+
+.father {
+    width: 100px;
+    height: 100px;
+    background-color: blue;
+    /* 将父级设置为单独的bfc来解决child的margin跟随塌陷问题 */
+    overflow: hidden;
+}
+
+.child {
+    width: 80px;
+    height: 80px;
+    background-color: yellow;
+    margin-top: 10px;
+}
+
+.container {
+    overflow: hidden;
+}
+
+.left {
+    float: left;
+    width: 200px;
+    background-color: pink;
+}
+
+.right {
+    float: right;
+    width: 200px;
+    background-color: #ccc;
+}
+
+.middle {
+    width: 100%;
+    background-color: red;
+}
+
+.demo5-con {
+    width: 100px;
+    word-break: keep-all;
+    /* 不换行 */
+    white-space: nowrap;
+    /* 不换行 */
+    overflow: hidden;
+    /* 创建BFC */
+    text-overflow: ellipsis;
+    /* 溢出展示... */
+}
