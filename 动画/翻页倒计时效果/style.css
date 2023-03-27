@@ -4,6 +4,15 @@
     box-sizing: border-box;
 }
 
+:root {
+    --animation-duration: 1000ms;
+}
+
+.container {
+    display: flex;
+    gap: 1px;
+}
+
 body {
     display: flex;
     align-items: center;
@@ -13,7 +22,7 @@ body {
     gap: 10px;
 }
 
-.container {
+.box {
     width: 200px;
     height: 100px;
     overflow: hidden;
@@ -21,7 +30,7 @@ body {
     border-radius: 8px;
 }
 
-.container::before {
+.box::before {
     content: '';
     position: absolute;
     top: 50%;
@@ -71,10 +80,76 @@ body {
     line-height: 0;
 }
 
-.container:hover .item2 {
-    transform: rotateX(0);   
+/* .box:hover .item2 {
+    transform: rotateX(0);
 }
 
-.container:hover .item3 {
+.box:hover .item3 {
     transform: rotateX(-180deg);
+} */
+
+.hours .item2 {
+    animation: hour-animation-item2 var(--animation-duration) var(--animation-iteration-count) linear;
+    animation-play-state: var(--animation-play-state-hour);
+}
+
+.hours .item3 {
+    animation: hour-animation-item3 var(--animation-duration) var(--animation-iteration-count) linear;
+    animation-play-state: var(--animation-play-state-hour);
+}
+
+.minutes .item2 {
+    animation: minute-animation-item2 var(--animation-duration) var(--animation-iteration-count) linear;
+    animation-play-state: var(--animation-play-state-minute);
+}
+
+.minutes .item3 {
+    animation: minute-animation-item3 var(--animation-duration) var(--animation-iteration-count) linear;
+    animation-play-state: var(--animation-play-state-minute);
+}
+
+.seconds .item2 {
+    animation: second-animation-item2 var(--animation-duration) var(--animation-iteration-count) linear;
+    animation-play-state: var(--animation-play-state-second);
+}
+
+.seconds .item3 {
+    animation: second-animation-item3 var(--animation-duration) var(--animation-iteration-count) linear;
+    animation-play-state: var(--animation-play-state-second);
+}
+
+@keyframes hour-animation-item2 {
+    to {
+        transform: rotateX(0);
+    }
+}
+
+@keyframes hour-animation-item3 {
+    to {
+        transform: rotateX(-180deg);
+    }
+}
+
+@keyframes minute-animation-item2 {
+    to {
+        transform: rotateX(0);
+    }
+}
+
+@keyframes minute-animation-item3 {
+    to {
+        transform: rotateX(-180deg);
+    }
+}
+
+@keyframes second-animation-item2 {
+    to {
+        transform: rotateX(0);
+    }
+}
+
+@keyframes second-animation-item3 {
+    to {
+        transform: rotateX(-180deg);
+    }
 }

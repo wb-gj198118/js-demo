@@ -8,12 +8,28 @@
 </head>
 
 <body>
-    <div class="container hour">
-        <div class="item item1">00</div>
-        <div class="item item2">00</div>
-        <div class="item item3">23</div>
-        <div class="item item4">23</div>
+    <div class="container" style="--animation-iteration-count: infinite">
+        <div class="box hours" style="--animation-play-state-hour: paused">
+            <div class="item item1"></div>
+            <div class="item item2"></div>
+            <div class="item item3"></div>
+            <div class="item item4"></div>
+        </div>
+        <div class="box minutes" style="--animation-play-state-minute: paused">
+            <div class="item item1"></div>
+            <div class="item item2"></div>
+            <div class="item item3"></div>
+            <div class="item item4"></div>
+        </div>
+        <div class="box seconds" style="--animation-play-state-second: running">
+            <div class="item item1"></div>
+            <div class="item item2"></div>
+            <div class="item item3"></div>
+            <div class="item item4"></div>
+        </div>
     </div>
+
+    <script src="script.js"></script>
 </body>
 
 </html>
