@@ -73,7 +73,9 @@ function changeOpenState(treeData, state) {
     const _newTreeData = JSON.parse(JSON.stringify(treeData));
     const loop = function (data) {
         data.forEach(element => {
-            element.open = state;
+            if (element.open !== state) {
+                element.open = state;
+            }
             if (element.children && element.children.length > 0) {
                 loop(element.children);
             }

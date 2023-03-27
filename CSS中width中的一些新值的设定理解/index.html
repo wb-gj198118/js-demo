@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>css width</title>
+    <style>
+
+        .demo {
+            border: 1px solid #0a2459;
+            border-radius: 12px;
+        }
+
+        .demo + .demo {
+            margin-top: 16px;
+        }
+
+        .box {
+            background-color: #f0f3f9;
+            padding: 10px;
+            margin: 10px 0 20px;
+            overflow: hidden;
+            border: 1px solid #0c2479;
+            border-radius: 12px;
+        }
+
+        .inline-block {
+            display: inline-block;
+        }
+
+        .min-content {
+            width: -webkit-min-content;
+            width: -moz-min-content;
+            width: min-content;
+        }
+
+        .max-content {
+            width: -webkit-max-content;
+            width: -moz-max-content;
+            width: max-content;
+        }
+    </style>
+</head>
+
+<body>
+    <main class="main">
+        <section class="demo">
+            <figure>
+                <figcaption>
+                    <h2>min-content</h2>
+                </figcaption>
+                <div><strong>display:inline-block;</strong></div>
+                <div class="box inline-block">
+                    <img src="mm1.jpg">
+                    <p>display:inline-block具有收缩特性，但这里宽度随文字。而width:min-content随图片。</p>
+                </div>
+                <div><strong>width: min-content;</strong></div>
+                <div class="box min-content">
+                    <img src="mm1.jpg">
+                    <p>display:inline-block具有收缩特性，但这里宽度随文字。而width:min-content随图片。</p>
+                </div>
+            </figure>
+        </section>
+        <section class="demo">
+            <figure>
+                <figcaption>
+                    <h2>max-content</h2>
+                </figcaption>
+                <div><strong>display:inline-block;</strong></div>
+                <div class="box inline-block">
+                    <img src="mm1.jpg">
+                    <p>display:inline-block具有收缩特性，但是，当（例如这里的）描述文字超过一行显示的时候，其会这行，不会让自身的宽度超过父级容器的可用空间的，但是，width:max-content就不是酱样子哦咯！表现得好像设置了white-space:nowrap一样，科科！
+                    </p>
+                </div>
+                <div><strong>width: max-content;</strong></div>
+                <div class="box max-content">
+                    <img src="mm1.jpg">
+                    <p>display:inline-block具有收缩特性，但是，当（例如这里的）描述文字超过一行显示的时候，其会这行，不会让自身的宽度超过父级容器的可用空间的，但是，width:max-content就不是酱样子哦咯！表现得好像设置了white-space:nowrap一样，科科！
+                    </p>
+                </div>
+            </figure>
+        </section>
+    </main>
+
+</body>
+
+</html>

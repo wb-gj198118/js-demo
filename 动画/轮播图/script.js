@@ -140,16 +140,14 @@ window.addEventListener('load', function () {
     document.addEventListener('visibilitychange', function () {
         var isHidden = document.hidden;
         if (isHidden) {
-            stop();
             flag = true;
             carousel.classList.remove('running');
             carousel.timer && clearInterval(carousel.timer);
             carousel.timer = null;
-            console.log(' 111111 ',);
+            stop();
         } else {
             flag = false;
             start();
-            console.log(' 222222 ',);
         }
     });
 });
