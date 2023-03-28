@@ -1,14 +1,16 @@
-const hours = document.querySelector('.hours');
-const minutes = document.querySelector('.minutes');
-const seconds = document.querySelector('.seconds');
+// const hours = document.querySelector('.hours');
+// const minutes = document.querySelector('.minutes');
+// const seconds = document.querySelector('.seconds');
 
-const hoursBox = hours.querySelectorAll('.item');
-const minutesBox = minutes.querySelectorAll('.item');
-const secondsBox = seconds.querySelectorAll('.item');
+// const hoursBox = hours.querySelectorAll('.item');
+// const minutesBox = minutes.querySelectorAll('.item');
+// const secondsBox = seconds.querySelectorAll('.item');
 
 const formatTime = (time) => {
-    if (time < 10) time = '0' + time
-    return time
+    if (time < 10) {
+        return `0${time}`;
+    }
+    return time;
 }
 
 class CountDown {
@@ -36,7 +38,7 @@ class CountDown {
     #minute = 0;
     #second = 0;
     #timer = 0;
-    
+
     constructor() {
         this.init();
         this.start();
