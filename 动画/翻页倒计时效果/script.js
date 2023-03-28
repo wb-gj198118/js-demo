@@ -11,86 +11,154 @@ const formatTime = (time) => {
     return time
 }
 
-function init() {
-    let { second, minute, hour } = CountDown(hoursBox, minutesBox, secondsBox);
-    startTimer(second, minute, hour);
-}
+class CountDown {
+    #cssVar = {
+        hour: '--animation-play-state-hour',
+        minute: '--animation-play-state-minute',
+        second: '--animation-play-state-second',
+    }
 
-init();
+    #animationPlayState = {
+        running: 'running', // 开启动画
+        paused: 'paused', // 暂停动画
+    }
 
-function startTimer(second, minute, hour) {
-    setInterval(function () {
-        if (second >= 60) {
-            second = 0;
+    #doms = {
+        hours: document.querySelector('.hours'),
+        minutes: document.querySelector('.minutes'),
+        seconds: document.querySelector('.seconds'),
+        hoursBox: document.querySelectorAll('.hours .item'),
+        minutesBox: document.querySelectorAll('.minutes .item'),
+        secondsBox: document.querySelectorAll('.seconds .item'),
+    }
+
+    #hour = 0;
+    #minute = 0;
+    #second = 0;
+    #timer = 0;
+    
+    constructor() {
+        this.init();
+        this.start();
+    }
+
+    init() {
+        let currDate = new Date();
+        let hour = parseInt(currDate.getHours());
+        let minute = parseInt(currDate.getMinutes());
+        let second = parseInt(currDate.getSeconds());
+        this.#hour = hour;
+        this.#minute = minute;
+        this.#second = second;
+        this.#updateHour(this.#doms.hoursBox, hour);
+        this.#updateMinuteAndSecond(this.#doms.minutesBox, minute);
+        this.#updateMinuteAndSecond(this.#doms.secondsBox, second);
+    }
+
+    // 检测是否需要更新小时值
+    #checkUpdateHour() {
+        return this.#minute === 0;
+    }
+
+    // 检测是否需要更新分钟值
+    #checkUpdateMinute() {
+        return this.#second === 0;
+    }
+
+    // 更新对应的小时值
+    #updateHour(items, hour) {
+        if (items && items.length > 0) {
+            let curr = formatTime(hour);
+            let next = formatTime(hour + 1 === 24 ? 23 : hour + 1);
+            items[0].textContent = next;
+            items[1].textContent = next;
+            items[2].textContent = curr;
+            items[3].textContent = curr;
         }
-        // let { second, minute, hour } = CountDown(hoursBox, minutesBox, secondsBox);
-        if (second === 0) {
-            // seconds.style.setProperty('--animation-play-state-second', 'paused');
+    }
+
+    // 更新对应的分钟和秒值
+    #updateMinuteAndSecond(items, value) {
+        if (items && items.length > 0) {
+            if (value === 60) value = 0;
+            let curr = formatTime(value);
+            let next = formatTime(value < 59 ? value + 1 : 0);
+            items[0].textContent = next;
+            items[1].textContent = next;
+            items[2].textContent = curr;
+            items[3].textContent = curr;
+        }
+    }
+
+    // 重置对应的时间值
+    #reset() {
+        if (this.#second >= 60) {
+            this.#second = 0;
+        }
+        if (this.#minute >= 60) {
+            this.#minute = 0;
+        }
+        if (this.#hour >= 24) {
+            this.#hour = 0;
+        }
+    }
+
+    // 更新相应的值的逻辑处理
+    #update() {
+        this.#reset();
+        if (this.#checkUpdateMinute()) {
             // 启动分钟动画
-            minutes.style.setProperty('--animation-play-state-minute', 'running');
-            if (minute === 0) {
+            this.#setAnimationPlayState(this.#doms.minutes, this.#cssVar.minute, this.#animationPlayState.running);
+            this.#updateMinuteAndSecond(this.#doms.minutesBox, this.#minute);
+            this.#minute++;
+            if (this.#checkUpdateHour()) {
                 // 启动小时动画
-                hours.style.setProperty('--animation-play-state-hour', 'running');
+                this.#setAnimationPlayState(this.#doms.hours, this.#cssVar.minute, this.#animationPlayState.running);
+                this.#updateHour(this.#doms.hoursBox, this.#hour);
+                this.#hour ++;
             } else {
-                // 小时动画停止
-                hours.style.setProperty('--animation-play-state-hour', 'paused');
+                // 暂停小时动画
+                this.#setAnimationPlayState(this.#doms.hours, this.#cssVar.minute, this.#animationPlayState.paused);
             }
-        } else if (second < 60) {
-            seconds.style.setProperty('--animation-play-state-second', 'running');
-            // 小时和分钟动画都需要停止
-            minutes.style.setProperty('--animation-play-state-minute', 'paused');
-            hours.style.setProperty('--animation-play-state-hour', 'paused');
         } else {
-            // 秒动画启动
-            seconds.style.setProperty('--animation-play-state-second', 'running');
+            // 暂停分钟动画
+            this.#setAnimationPlayState(this.#doms.minutes, this.#cssVar.minute, this.#animationPlayState.paused);
         }
-        second ++;
-        setMinutesAndSeconds(secondsBox, second);
-    }, 1000);
-}
+        this.#setAnimationPlayState(this.#doms.seconds, this.#cssVar.second, this.#animationPlayState.running);
+        this.#updateMinuteAndSecond(this.#doms.secondsBox, this.#second);
+        this.#second ++;
+    }
 
-// 实现打印此时的剩余时间数，需要和定时器配合使用，以便一秒刷新一次，达成倒计时效果
-function CountDown(hourBox, minBox, secBox) {
-    let currDate = new Date();
-    let hour = parseInt(currDate.getHours());
-    let min = parseInt(currDate.getMinutes());
-    let sec = parseInt(currDate.getSeconds());
-    setHours(hourBox, hour);
-    setMinutesAndSeconds(minBox, min);
-    setMinutesAndSeconds(secBox, sec);
-    return { hour, minute: min, second: sec };
-}
+    start() {
+        this.#timer = setInterval(() => {
+            this.#update();
+        }, 1000);
+    }
 
-function setHours(items, hour) {
-    if (items && items.length > 0) {
-        let curr = formatTime(hour);
-        let next = formatTime(hour + 1 === 24 ? 23 : hour + 1);
-        items[0].textContent = next;
-        items[1].textContent = next;
-        items[2].textContent = curr;
-        items[3].textContent = curr;
+    stop() {
+        if (this.#timer) {
+            clearInterval(this.#timer);
+            this.#setAnimationPlayState(this.#doms.hours, this.#cssVar.hour, this.#animationPlayState.paused);
+            this.#setAnimationPlayState(this.#doms.minutes, this.#cssVar.minute, this.#animationPlayState.paused);
+            this.#setAnimationPlayState(this.#doms.seconds, this.#cssVar.second, this.#animationPlayState.paused);
+        }
+    }
+
+    // 启动或者暂停动画
+    #setAnimationPlayState(doms, cssVar, state) {
+        if (!doms || !doms.style) return;
+        const prevState = window.getComputedStyle(doms).getPropertyValue(cssVar);
+        if (prevState !== state) {
+            doms.style.setProperty(cssVar, state);
+        }
     }
 }
 
-function setMinutesAndSeconds(items, value) {
-    if (items && items.length > 0) {
-        if (value === 60) value = 0;
-        let curr = formatTime(value);
-        let next = formatTime(value < 59 ? value + 1 : 0);
-        items[0].textContent = next;
-        items[1].textContent = next;
-        items[2].textContent = curr;
-        items[3].textContent = curr;
-    }
-}
+const countDown = new CountDown();
 
-// function setMinutes(items, minute) {
-//     if (items && items.length > 0) {
-//         let curr = formatTime(minute);
-//         let next = formatTime(minute < 59 ? minute + 1 : 0);
-//         items[0].textContent = next;
-//         items[1].textContent = next;
-//         items[2].textContent = curr;
-//         items[3].textContent = curr;
-//     }
-// }
+// countDown.stop();
+
+// setTimeout(function () {
+//     countDown.init();
+//     countDown.start();
+// }, 5000);
