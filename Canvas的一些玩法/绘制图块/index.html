@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>绘制图块</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        #canvas {
+            background-color: beige;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <canvas id="canvas"></canvas>
+    </div>
+</body>
+
+<script>
+    // 获取canvas
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    // 所有绘制的图形数组集合。
+    let shapeCollection = []
+
+    // 设置宽高
+    canvas.width = document.documentElement.clientWidth;
+    canvas.height = document.documentElement.clientHeight;
+
+    class RectFactory {
+        /**
+         * @startX：鼠标 点击时 的坐标轴 X 值
+         * @startY：鼠标 点击时 的坐标轴 Y 值
+         * @endX：鼠标 抬起时 的坐标轴 X 值
+         * @endY：鼠标 抬起时 的坐标轴 Y 值
+         * */
+        constructor(startX, startY, endX = startX, endY = startY, {
+            fillColor = 'blue', strokeStyle = "#fff", lineCap = 'square', lineWidth = 1
+        } = {}) {
+            this.startX = startX;
+            this.startY = startY;
+            this.endX = endX;
+            this.endY = endY;
+            this.fillColor = fillColor;
+            this.strokeStyle = strokeStyle;
+            this.lineCap = lineCap;
+            this.lineWidth = lineWidth;
+        }
+        // 为了保持不同的鼠标绘制方向都能绘制出图形，对坐标进行处理。
+        get minX() {
+            return Math.min(this.startX, this.endX);
+        }
+        get maxX() {
+            return Math.max(this.startX, this.endX);
+        }
+        get minY() {
+            return Math.min(this.startY, this.endY);
+        }
+        get maxY() {
+            return Math.max(this.startY, this.endY);
+        }
+
+        draw() {
+            ctx.beginPath();
+            ctx.moveTo(this.minX, this.minY);
+            ctx.lineTo(this.maxX, this.minY);
+            ctx.lineTo(this.maxX, this.maxY);
+            ctx.lineTo(this.minX, this.maxY);
+            ctx.lineTo(this.minX, this.minY);
+            ctx.fillStyle = this.fillColor;
+            ctx.fill();
+            ctx.strokeStyle = this.strokeStyle;
+            ctx.lineCap = this.lineCap;
+            ctx.lineWidth = this.lineWidth;
+            ctx.stroke();
+        }
+
+        // 判断当前点击位置是否在图形内部（边界值判断）
+        isInside(x, y) {
+            return x >= this.minX && x <= this.maxX && y >= this.minY && y <= this.maxY
+        }
+    }
+
+    canvas.onmousedown = (e) => {
+        const rect = canvas.getBoundingClientRect();
+        const clickX = e.clientX - rect.left;
+        const clickY = e.clientY - rect.top;
+        const shape = getRect(clickX, clickY)
+
+        if (shape) {
+            moveRect(e, clickX, clickY, rect, shape)
+        } else {
+            drawRect(e, clickX, clickY, rect)
+        }
+
+    }
+    canvas.onmouseup = () => {
+        canvas.onmousemove = null;
+        window.onmousemove = null;
+    };
+
+    // 鼠标点击canvas查看是否点击到了已经绘制的路线，若是，则返回相关线的对象，若否，返回null
+    const getRect = (x, y) => {
+        for (let i = shapeCollection.length - 1; i >= 0; i--) {
+            const element = shapeCollection[i];
+            if (element.isInside(x, y)) {
+                return element;
+            }
+        }
+        return null
+    }
+
+    const drawRect = (e, clickX, clickY, rect) => {
+        const shape = new RectFactory(clickX, clickY)
+        shapeCollection.push(shape)
+        window.onmousemove = (evt) => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            shape.endX = evt.clientX - rect.left;
+            shape.endY = evt.clientY - rect.top;
+        }
+    }
+
+    const moveRect = (e, clickX, clickY, rect, shape) => {
+        const { startX, startY, endX, endY } = shape;
+        window.onmousemove = (evt) => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            const distanceX = evt.clientX - rect.left - clickX;
+            const distanceY = evt.clientY - rect.top - clickY;
+            shape.startX = startX + distanceX;
+            shape.startY = startY + distanceY;
+            shape.endX = endX + distanceX;
+            shape.endY = endY + distanceY;
+        }
+    };
+
+    const draw = () => {
+        requestAnimationFrame(draw)
+        for (const pp of shapeCollection) {
+            pp.draw()
+        }
+    }
+    draw()
+</script>
+
+</html>
