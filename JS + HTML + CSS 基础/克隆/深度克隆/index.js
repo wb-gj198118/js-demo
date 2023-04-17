@@ -1,10 +1,11 @@
 // JSON.parse(JSON.stringify(value))
 // 此方案存在的弊端：
-// 1. 以下两种情况无法实现深拷贝
-//  在obj 对象种加入 set get 方法，会导致方法被运算
-//  对obj 对象通过 Object.defineProperty() 添加属性时无法被拷贝
-// 2. 当对象中的属性值为undefined、函数、Symbol、NaN时，如果不加处理，默认情况下，非数组中会被无情抛弃，数组中，会被转换为null值
-// 3. 对包含循环引用的对象（对象之间相互引用，形成无限循环）执行此方法，会抛出错误
+// - 拷贝的对象的值中如果有函数,undefined,symbol则经过JSON.stringify()序列化后的JSON字符串中这个键值对会消失，这些值在如果是数组的值时，会被转换为null
+// - 无法拷贝不可枚举的属性，无法拷贝对象的原型链
+// - 拷贝Date引用类型会变成字符串
+// - 拷贝RegExp引用类型会变成空对象
+// - 对象中含有NaN、Infinity和-Infinity，则序列化的结果会变成null
+// - 无法拷贝对象的循环应用(即obj[key] = obj)
 
 var obj = {
     a: 1, b: 2, c: { d: 10, e: 20 },
