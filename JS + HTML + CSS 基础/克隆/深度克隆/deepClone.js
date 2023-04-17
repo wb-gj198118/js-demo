@@ -25,11 +25,13 @@ var objA = {
     weakSet: new WeakSet([{ a: 1 }, { a: 'a' }]),
 };
 
-/** 浅比较的简单实现 TODO: 其余分支待补充 */
-function deepClone(obj) {
+/** 深克隆的简单实现 TODO: 其余分支待补充 */
+function deepClone(obj, map = new WeakMap()) {
     // 当对象不存在或者为空对象时，直接返回
     if (!obj && !Object.keys(obj).length) return obj;
+    if (map.has(obj)) return map.get(obj);
     const result = {};
+    map.set(obj, result);
     for (let k in obj) {
         const value = obj[k];
         const validation = validateType(value);
@@ -40,11 +42,11 @@ function deepClone(obj) {
         } else if ([validation.isSet, validation.isMap].includes(true)) { // Set、Map
             result[k] = new value.constructor(value.valueOf());
         } else if (validation.isArray) { // 数组
-            result[k] = initCloneArray(value).map(item => deepClone(item));
+            result[k] = initCloneArray(value).map(item => deepClone(item, map));
         } else if (validation.isSymbol) { // Symbol
             result[k] = cloneSymbol(value);
         } else if (validation.isObject) { // Object
-            result[k] = deepClone(value);
+            result[k] = deepClone(value, map);
         } else {
             result[k] = value;
         }
@@ -52,12 +54,8 @@ function deepClone(obj) {
     return result;
 }
 
+objA.obj = objA;
+
 var objB = deepClone(objA);
 
-objB.a = 2;
-
-objB.b.c = 'b.c的值被修改了';
-
-// console.log(' a -> b', objA, objB);
-
-for (let k in objA) { console.log(k, objA[k] === objB[k]) }
+console.log(' a -> b', objA, objB);
