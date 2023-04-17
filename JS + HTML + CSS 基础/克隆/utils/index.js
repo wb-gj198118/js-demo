@@ -116,7 +116,6 @@ function cloneDataView(dataView, isDeep) {
  * @returns 
  */
 function cloneSymbol(symbol) {
-    
     return Symbol(symbol.toString().slice(7, - 1));
 }
 

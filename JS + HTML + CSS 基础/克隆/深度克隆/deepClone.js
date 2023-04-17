@@ -45,8 +45,10 @@ function deepClone(obj) {
             result[k] = initCloneArray(value).map(item => deepClone(item));
         } else if (validation.isSymbol) { // Symbol
             result[k] = cloneSymbol(value);
+        } else if (validation.isObject){ // Object
+            result[k] = deepClone(value);
         } else {
-            result[k] = obj[k];
+            result[k] = value;
         }
     }
     return result;
@@ -58,4 +60,6 @@ objB.a = 2;
 
 objB.b.c = 'b.c的值被修改了';
 
-console.log(' a -> b', objA, objB);
+// console.log(' a -> b', objA, objB);
+
+for (let k in objA) { console.log(k, objA[k] === objB[k]) }
