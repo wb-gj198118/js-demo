@@ -1,4 +1,4 @@
-// 方案一 JSON.parse(JSON.stringify())
+// JSON.parse(JSON.stringify(value))
 // 此方案存在的弊端：
 // 1. 以下两种情况无法实现深拷贝
 //  在obj 对象种加入 set get 方法，会导致方法被运算
