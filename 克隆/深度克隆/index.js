@@ -11,18 +11,18 @@ Object.defineProperty(obj, 'kk', {
     value: '这个是通过属性枚举的方式添加的属性kk',
 });
 
-// var obj1 = JSON.parse(JSON.stringify(obj)); // 克隆
+var obj1 = JSON.parse(JSON.stringify(obj)); // 克隆
 
-// obj.a = 2;
-// obj.c.d = 100;
-// console.log(obj);  // { a: 2, b: 2, c: { d: 100, e: 20}}
-// console.log(obj1); // { a: 1, b: 2, c:{ d: 10, e: 20}}
+obj.a = 2;
+obj.c.d = 100;
+
+console.log(obj);  // { a: 2, b: 2, c: { d: 100, e: 20}}
+console.log(obj1); // { a: 1, b: 2, c:{ d: 10, e: 20}}
 
 /**
- * 深度克隆
+ * 深度克隆 
  * @param {*} obj 需要克隆的对象
  */
 function deepClone(obj) {
-
+    if (!obj || !Object.keys(obj).length) return obj;
 }
-

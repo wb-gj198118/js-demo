@@ -111,11 +111,12 @@ function cloneDataView(dataView, isDeep) {
 }
 
 /**
- * Symbol 数据的克隆
+ * Symbol 数据的克隆 简易暴力版，哈哈哈
  * @param {*} symbol 
  * @returns 
  */
 function cloneSymbol(symbol) {
+    
     return Symbol(symbol.toString().slice(7, - 1));
 }
 

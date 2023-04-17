@@ -4,28 +4,28 @@ var s = Symbol(9);
 var o = {};
 
 var objA = {
-    // a: 1,
-    // arr: [3, 4],
-    // b: { c: 'c' },
-    // c: function () {
+    a: 1,
+    arr: [3, 4],
+    b: { c: 'c' },
+    c: function () {
 
-    // },
-    // d: () => {
+    },
+    d: () => {
 
-    // },
-    // nan: NaN,
-    // e: new Date(),
-    // reg: new RegExp('\d', 'gi'),
-    // null: null,
-    // undef: undefined,
+    },
+    nan: NaN,
+    e: new Date(),
+    reg: new RegExp('\d', 'gi'),
+    null: null,
+    undef: undefined,
     sym: Symbol(6666),
-    // map: new Map([[1, 2], [3, 4]]),
-    // set: new Set([{}, {}, 5, null, NaN, NaN, null, undefined, undefined, 4, 5, s, s, o, o]),
-    // weakMap: new WeakMap([[{ a: 1 }, { a: 'a' }]]),
-    // weakSet: new WeakSet([{ a: 1 }, { a: 'a' }]),
+    map: new Map([[1, 2], [3, 4]]),
+    set: new Set([{}, {}, 5, null, NaN, NaN, null, undefined, undefined, 4, 5, s, s, o, o]),
+    weakMap: new WeakMap([[{ a: 1 }, { a: 'a' }]]),
+    weakSet: new WeakSet([{ a: 1 }, { a: 'a' }]),
 };
 
-/** 浅比较的实现 TODO: 其余分支待补充 */
+/** 浅比较的简单实现 TODO: 其余分支待补充 */
 function shadowClone(obj) {
     // 当对象不存在或者为空对象时，直接返回
     if (!obj && !Object.keys(obj).length) return obj;
@@ -41,7 +41,7 @@ function shadowClone(obj) {
             result[k] = new Function('return ' + value.toString())();
         } else if ([validation.isSet, validation.isMap].includes(true)) { // Set、Map
             result[k] = new value.constructor(value.valueOf());
-        } else if (validation.isArray) {
+        } else if (validation.isArray) { // 数组
             result[k] = initCloneArray(value);
         } else if (validation.isSymbol) { // Symbol
             result[k] = cloneSymbol(value);
@@ -54,14 +54,8 @@ function shadowClone(obj) {
 
 var objB = shadowClone(objA);
 
-// objB.a = 2;
+objB.a = 2;
 
-// objB.b.c = 'b.c的值被修改了';
+objB.b.c = 'b.c的值被修改了';
 
-console.log(' a -> b', Object.keys(objA).length === Object.keys(objB).length);
-
-for (let k in objA) {
-    console.log(' key: ', k);
-    console.log(' value type: ', getType(objA[k]), getType(objB[k]));
-    console.log(' value ', objA[k], objB[k], objA[k] === objB[k]);
-}
+console.log(' a -> b', objA, objB);
