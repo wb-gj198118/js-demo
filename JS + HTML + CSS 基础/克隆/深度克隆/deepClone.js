@@ -42,7 +42,7 @@ function deepClone(obj) {
         } else if ([validation.isSet, validation.isMap].includes(true)) { // Set、Map
             result[k] = new value.constructor(value.valueOf());
         } else if (validation.isArray) { // 数组
-            result[k] = initCloneArray(value);
+            result[k] = initCloneArray(value).map(item => deepClone(item));
         } else if (validation.isSymbol) { // Symbol
             result[k] = cloneSymbol(value);
         } else {
