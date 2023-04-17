@@ -26,18 +26,33 @@ var objA = {
 };
 
 /** 浅比较的简单实现 TODO: 其余分支待补充 */
-function shadowClone(obj) {
+function deepClone(obj) {
     // 当对象不存在或者为空对象时，直接返回
     if (!obj && !Object.keys(obj).length) return obj;
     const result = {};
     for (let k in obj) {
         const value = obj[k];
-        result[k] = value;
+        const validation = validateType(value);
+        if (validation.isDate) { // 日期
+            result[k] = new value.constructor(+value);
+        } else if (validation.isRegexp) { // 正则
+            result[k] = cloneRegExp(value);
+        } else if (validation.isFunction) { // 函数
+            result[k] = new Function('return ' + value.toString())();
+        } else if ([validation.isSet, validation.isMap].includes(true)) { // Set、Map
+            result[k] = new value.constructor(value.valueOf());
+        } else if (validation.isArray) { // 数组
+            result[k] = initCloneArray(value);
+        } else if (validation.isSymbol) { // Symbol
+            result[k] = cloneSymbol(value);
+        } else {
+            result[k] = obj[k];
+        }
     }
     return result;
 }
 
-var objB = shadowClone(objA);
+var objB = deepClone(objA);
 
 objB.a = 2;
 
