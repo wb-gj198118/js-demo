@@ -8,10 +8,10 @@ var objA = {
     arr: [3, 4],
     b: { c: 'c' },
     c: function () {
-
+        console.log('c');
     },
     d: () => {
-
+        console.log('d');
     },
     nan: NaN,
     e: new Date(),
@@ -37,15 +37,13 @@ function deepClone(obj) {
             result[k] = new value.constructor(+value);
         } else if (validation.isRegexp) { // 正则
             result[k] = cloneRegExp(value);
-        } else if (validation.isFunction) { // 函数
-            result[k] = new Function('return ' + value.toString())();
         } else if ([validation.isSet, validation.isMap].includes(true)) { // Set、Map
             result[k] = new value.constructor(value.valueOf());
         } else if (validation.isArray) { // 数组
             result[k] = initCloneArray(value).map(item => deepClone(item));
         } else if (validation.isSymbol) { // Symbol
             result[k] = cloneSymbol(value);
-        } else if (validation.isObject){ // Object
+        } else if (validation.isObject) { // Object
             result[k] = deepClone(value);
         } else {
             result[k] = value;
