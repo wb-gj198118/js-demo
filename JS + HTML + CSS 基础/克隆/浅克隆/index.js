@@ -25,7 +25,7 @@ var objA = {
     weakSet: new WeakSet([{ a: 1 }, { a: 'a' }]),
 };
 
-/** 浅比较的简单实现 TODO: 其余分支待补充 */
+/** 浅比较的简单实现 */
 function shadowClone(obj) {
     // 当对象不存在或者为空对象时，直接返回
     if (!obj && !Object.keys(obj).length) return obj;
