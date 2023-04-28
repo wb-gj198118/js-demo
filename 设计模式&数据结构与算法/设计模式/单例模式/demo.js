@@ -1,8 +1,8 @@
 const Singleton = require("../单例模式/singleton.js");
 
 class Demo {
-    constructor() {
-        console.log(' demo ');
+    constructor(...args) {
+        console.log(' demo ', args);
     }
 }
 

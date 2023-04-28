@@ -41,8 +41,12 @@ function list2Tree(list, kid = 'id', parentKey = 'pid', childKey = 'children') {
         const idx = map[pid];
         // map中存在对应的pid项，只需向其子集添加当前项, 不存在，就说明它是单独的父项
         if (pid && list[idx]) {
+            if (list[idx].depth > -1) {
+                node.depth = list[idx].depth + 1;
+            }
             list[idx][childKey].push(node);
         } else {
+            node.depth = 0;
             treeData.push(node);
         }
     }

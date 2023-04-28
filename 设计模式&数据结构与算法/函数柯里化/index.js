@@ -5,9 +5,8 @@ function curry(fn, ...outerArgs) {
         const allArgs = innerArgs.concat(...outerArgs);
         if (allArgs.length < length) {
             return curry.call(this, fn, allArgs);
-        } else {
-            return fn.apply(this, allArgs);
         }
+        return fn.apply(this, allArgs);
     }
 }
 

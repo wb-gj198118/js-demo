@@ -8,10 +8,7 @@
             "type": "node",
             "request": "launch",
             "name": "启动程序",
-            "skipFiles": [
-                "<node_internals>/**"
-            ],
-            "program": "${workspaceFolder}/大数相加/test.js",
+            "program": "${workspaceFolder}/数据结构与算法/旋涡矩阵顺时针输出/index.js",
             "runtimeExecutable": "/Users/gaojian/.nvm/versions/node/v19.7.0/bin/node"
         }
     ]

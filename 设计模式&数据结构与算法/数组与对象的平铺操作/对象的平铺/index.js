@@ -4,7 +4,7 @@
  * @param {*} obj 
  * @returns 
  */
-function objectFlattern(obj) {
+function objectFlatten(obj) {
     const result = {};
     function flat(item, preKey) {
         for (let k in item) {
@@ -25,4 +25,8 @@ function objectFlattern(obj) {
     return result;
 }
 
-console.log('objectFlattern', objectFlattern({ a: 1, b: [2, 3, { 4: 5 }], c: 0, d: null }));
+const obj = { a: 1, b: [2, 3, { 4: 5 }], c: 0, d: null };
+
+obj.obj = obj;
+
+console.log('objectFlatten', objectFlatten(obj));

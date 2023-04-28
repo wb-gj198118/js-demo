@@ -2,8 +2,8 @@ let rows1 = [];
 
 for (let i = 0; i < 10; i++) {
     rows1[i] = Array(i + 1).fill(1);
-    for (let j = 0; j <= i; j++) {
-        rows1[i][j] = j === 0 || j === i ? 1 : rows1[i - 1][j] + rows1[i - 1][j - 1];
+    for (let j = 1; j < i; j++) {
+        rows1[i][j] = rows1[i - 1][j] + rows1[i - 1][j - 1];
     }
 }
 

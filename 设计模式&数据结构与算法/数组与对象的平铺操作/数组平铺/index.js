@@ -1,9 +1,9 @@
 // 数组平铺
-function flatternArray(arr, depth = 1) {
+function flatten(arr, depth = 1) {
     return arr.reduce((prev, curr) => {
         let result = curr;
         if (Array.isArray(curr) && depth > 0) {
-            result = flatternArray(curr, depth - 1);
+            result = flatten(curr, depth - 1);
         } else if (depth > 0) {
             result = curr;
         } else {
@@ -18,5 +18,5 @@ const n = 2;
 
 console.log(' 1 : ', arr.flat(n));
 
-console.log('flatternArray', flatternArray(arr, n));
+console.log('flatten', flatten(arr, n));
 
