@@ -1,10 +1,10 @@
 function isPalindrome(s) {
-    s = s.replace(/\W/gi, '').toLowerCase();
+    s = s.toLowerCase();
     const len = s.length;
     console.log(s);
     let left = 0, right = len - 1;
     while(left <= right) {
-        let reg = /^[a-zA-Z\d]$/, tpl, tpr ;
+        let reg = /^[a-zA-Z\d]$/, tpl, tpr;
         if (reg.test(s[left])) tpl = s[left]
         else {
             left ++;
@@ -21,7 +21,6 @@ function isPalindrome(s) {
         left ++;
         right --;
     }
-    console.log(left, right);
     return true;
 }
 

@@ -34,11 +34,11 @@ function processTasks(tasks) {
                         isRunning = false;
                         return;
                     }
-                    i++;
                     if (!isRunning && i < tasks.length) {
                         console.log('任务' + (i + 1) + '被中断了');
                         return;
                     }
+                    i++;
                 }
                 // 成功之后的处理
                 isRunning = false;

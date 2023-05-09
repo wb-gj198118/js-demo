@@ -8,7 +8,7 @@ function rob(nums) {
         dp1 = dp0 + nums[i];
         dp0 = temp;
     }
-    return dp0;
+    return Math.max(dp0, dp1);
 }
 
 console.log(rob([1,2,3,1]));
