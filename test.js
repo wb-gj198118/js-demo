@@ -162,9 +162,3 @@
 // }
 
 // console.log(' snail: ', [1, 2, 3, 4, 5, 6, 7, 8].snail(4, 2));
-
-for (var i = 0; i < 5; i ++) {
-    setTimeout(() => {
-        console.log(i, this);
-    }, i * 1000);
-}
