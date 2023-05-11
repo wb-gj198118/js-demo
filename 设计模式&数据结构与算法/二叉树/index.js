@@ -86,10 +86,12 @@ function inorderTraversalAtBefore(root) {
     // 循环方案
     const stack = [root];
     while (stack.length > 0) {
-        const node = stack.shift();
-        results.push(node.val);
-        if (node.left) stack.push(node.left);
-        if (node.right) stack.push(node.right);
+        const node = stack.pop();
+        if (node !== null) {
+            results.push(node.val);
+            if (node.right) stack.push(node.right);
+            if (node.left) stack.push(node.left);
+        }
     }
     return results;
 }
@@ -121,4 +123,4 @@ function inorderTraversalAtAfter(root) {
     return results;
 }
 
-console.log(" 后续遍历: ", inorderTraversalAtAfter(tree));
+console.log(" 后序遍历: ", inorderTraversalAtAfter(tree));
