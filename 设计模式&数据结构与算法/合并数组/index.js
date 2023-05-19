@@ -1,20 +1,23 @@
-function mergeArr(arr1, arr2) {
-    arr1.sort((a, b) => a - b);
-    arr2.sort((a, b) => a - b);
-    let i = arr1.length - 1;
-    let j = arr2.length - 1;
-    let k = i + j + 1;
-    while (i >= 0 && j >= 0) {
-        if (arr1[i] > arr2[j]) {
-            arr1[k] = arr1[i];
-            i--;
+function mergeArr(nums1, nums2, m = nums1.length, n = nums2.length) {
+    nums1.sort((a, b) => a - b);
+    nums2.sort((a, b) => a - b);
+    let i = m - 1, j = n - 1, k = i + j + 1, curr;
+    while(i >= 0 || j >= 0) {
+        if (i === -1) {
+            curr = nums2[j--];
+        } else if (j === -1) {
+            curr = nums1[i --];
+        } else if (nums1[i] > nums2[j]) {
+            curr = nums1[i --];
         } else {
-            arr1[k] = arr2[j];
-            j--;
+            curr = nums2[j --];
         }
-        k--;
+        nums1[k --] = curr;
     }
-    return arr1;
+    return nums1;
 }
 
-console.log(mergeArr([1, 3, 5, 2, 0], [3, 2, 0, 4]));
+const a1 = [0];
+const a2 = [1, 2];
+
+console.log(mergeArr(a1, a2));

@@ -4,7 +4,7 @@
  * @param {String} n2 
  * @returns n1 + n2
  */
-function bigNumAdd(n1, n2) {
+function bigNumAdd(n1, n2, n = 10) {
     let result = '';
     // 获取长度
     const len = Math.max(n1.length, n2.length);
@@ -15,11 +15,11 @@ function bigNumAdd(n1, n2) {
     let curry = 0;
     for (let i = len - 1; i >= 0; i--) {
         // 开始相加
-        let n = +n1[i] + +n2[i] + curry;
+        let sum = +n1[i] + +n2[i] + curry;
         // 计算进位
-        curry = Math.floor(n / 10);
+        curry = Math.floor(sum / n);
         // 将结果追加到result
-        result = (n % 10) + result;
+        result = (sum % n) + result;
     }
     // 最后还有进位的话，需要在前面补’1‘
     if (curry) {
@@ -28,10 +28,9 @@ function bigNumAdd(n1, n2) {
     return result;
 }
 
-const a = '7087665789554748485776';
-const b = '1098889654564540678787789';
+const a = '123';
+const b = '456';
 
 const addResult = bigNumAdd(a, b);
 
 console.log('addResult => ', addResult, (BigInt(a) + BigInt(b)) === BigInt(addResult));
-

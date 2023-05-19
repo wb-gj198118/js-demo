@@ -34,15 +34,15 @@ function quickSort(arr) {
 
 function mediumOfThree(arr, left, right) {
     const mid = left + Math.floor((right - left) / 2);
-    // if (arr[left] > arr[mid]) {
-    //     swap(arr, left, mid);
-    // }
-    // if (arr[right] < arr[mid]) {
-    //     swap(arr, mid, right);
-    //     if (arr[mid] < arr[left]) {
-    //         swap(arr, left, mid);
-    //     }
-    // }
+    if (arr[left] > arr[mid]) {
+        swap(arr, left, mid);
+    }
+    if (arr[right] < arr[mid]) {
+        swap(arr, mid, right);
+        if (arr[mid] < arr[left]) {
+            swap(arr, left, mid);
+        }
+    }
     return arr[mid];
 }
 

@@ -27,6 +27,6 @@ function objectFlatten(obj) {
 
 const obj = { a: 1, b: [2, 3, { 4: 5 }], c: 0, d: null };
 
-obj.obj = obj;
+const flagObj = objectFlatten(obj);
 
-console.log('objectFlatten', objectFlatten(obj));
+console.log('objectFlatten', flagObj);

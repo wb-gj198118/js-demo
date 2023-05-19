@@ -81,3 +81,32 @@
     display: grid;
     grid-template: 1fr / 200px 1fr;
 }
+
+.demo5 {
+    overflow: hidden;
+}
+
+.main {
+    &.demo5 {
+        .left,
+        .right {
+            float: left;
+            padding-bottom: 99999px;
+            margin-bottom: -99999px;
+        }
+    }
+}
+
+.demo6 {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+
+.demo6 {
+
+    .left,
+    .right {
+        display: table-cell;
+    }
+}
