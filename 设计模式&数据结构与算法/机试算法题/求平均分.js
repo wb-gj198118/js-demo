@@ -1,4 +1,3 @@
-
 // 是否Object类型
 function isObject(o) {
     return o !== null && typeof o === 'object';
@@ -75,24 +74,23 @@ function transformArgsToFun(arg) {
  */
 function calculateAverage(testListWithNestedDicts, dictKeys) {
     const fmt = transformArgsToFun(dictKeys);
-    const sum = {}; // 总和统计
-    const count = {}; // 数量统计
+    const statistics = {
+        // [path]: { sum: 0, count: 0 }
+    }; // 总和和数量统计
+
     // 将「obj」对象进行平铺
     function flattenObject(obj, prefix = '') {
         if (isObject(obj)) {
             for (let key in obj) {
-                let fullKey = key;
-                if (Array.isArray(obj)) {
-                    fullKey = prefix ? `${prefix}[${key}]` : key;
-                } else {
-                    fullKey = prefix ? `${prefix}.${key}` : key;
-                }
+                const fullKey = Array.isArray(obj) ?
+                    (prefix ? `${prefix}[${key}]` : key) :
+                    (prefix ? `${prefix}.${key}` : key);
                 const value = obj[key];
                 if (isObject(value)) {
                     flattenObject(value, fullKey);
                 } else {
-                    sum[fullKey] = (sum[fullKey] || 0) + value;
-                    count[fullKey] = (count[fullKey] || 0) + 1;
+                    const { sum = 0, count = 0 } = statistics[fullKey] || {};
+                    statistics[fullKey] = { sum: sum + value, count: count + 1 };
                 }
             }
         }
@@ -101,16 +99,17 @@ function calculateAverage(testListWithNestedDicts, dictKeys) {
     testListWithNestedDicts.forEach(obj => flattenObject(obj));
 
     // 将已经平铺的对象根据key的组合规则将其还原成原来的对象
-    function calcAvg(object, count) {
+    function calcAvg(object) {
         const result = {};
         for (let key in object) {
-            const value = object[key] / count[key];
+            const { sum, count } = object[key] || {};
+            const value = sum / count;
             result[key] = value;
         }
         return result;
     }
 
-    const avgObject = calcAvg(sum, count);
+    const avgObject = calcAvg(statistics);
     const result = parseObject(avgObject);
 
     return JSON.parse(JSON.stringify(result, (key, value) => {
