@@ -145,53 +145,20 @@
 // console.log(' flattenArray: ', flattenArray([1, 2, 3, [4, 5, 6, [8, 9, 10]]]));
 
 Array.prototype.snail = function (rowsCount, colsCount) {
-    if (rowsCount * colsCount !== this.length) return [];
-    const len = this.length;
-    let results = [];
-    let step = 1;
-    let rowIndex = 0;
-    for (let i = 0; i < len; ++i) {
-        results[rowIndex] ? results[rowIndex].push(this[i]) : results[rowIndex] = [this[i]];
-        if (step === 1) {
-            rowIndex === rowsCount - 1 ? step = -1 : rowIndex++;
-        } else {
-            rowIndex === 0 ? step = 1 : rowIndex--;
-        }
+  if (rowsCount * colsCount !== this.length) return [];
+  const len = this.length;
+  let results = [];
+  let step = 1;
+  let rowIndex = 0;
+  for (let i = 0; i < len; ++i) {
+    results[rowIndex] ? results[rowIndex].push(this[i]) : results[rowIndex] = [this[i]];
+    if (step === 1) {
+      rowIndex === rowsCount - 1 ? step = -1 : rowIndex++;
+    } else {
+      rowIndex === 0 ? step = 1 : rowIndex--;
     }
-    return results;
+  }
+  return results;
 }
 
 console.log(' snail: ', [1, 2, 3, 4, 5, 6, 7, 8, 9].snail(3, 3));
-
-function solution(A) {
-    const n = A.length;
-    const set = new Set(A); // 旅行公司推荐的目的地
-    const size = set.size;
-    const freq = new Map(); // 每个目的地在A中出现的次数
-    let left = 0, right = 0; // 滑动窗口的左右端点
-    let count = 0; // 当前滑动窗口中包含的不同目的地数
-    let ans = Infinity; // 最短旅行天数
-     while (right < n) {
-      // 右端点向右移动
-      const r = A[right];
-      freq.set(r, (freq.get(r) || 0) + 1);
-      if (set.has(r) && freq.get(r) === 1) {
-        count++;
-      }
-      right++;
-      // 左端点向右移动
-      while (count === size) {
-        const l = A[left];
-        freq.set(l, freq.get(l) - 1);
-        if (set.has(l) && freq.get(l) === 0) {
-          count--;
-          // 更新最短旅行天数
-          ans = Math.min(ans, right - left);
-        }
-        left++;
-      }
-    }
-     return ans;
-  }
-
-console.log('solution', solution([7,5,2,7,2,7,4,7]));
